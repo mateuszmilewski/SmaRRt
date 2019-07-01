@@ -1,0 +1,92 @@
+﻿.smarrt-form-container {
+	margin: 10px -300px;
+}
+
+
+.title-on-smarrt-form {
+	font-size: 16px;
+}
+
+
+
+.checkbox-add-supplier-on-smarrt {
+	font-size: 16px;
+	color: black;
+}
+
+.checkbox-add-supplier-on-smarrt input {
+	font-size: 14px;
+}
+
+
+.wyslij-zapytanie-ccc {
+	position: absolute !important;
+}
+
+.checkbox-add-supplier-on-smarrt {
+	position: absolute !important;
+	left: 300px;
+	padding: 4px;
+	margin: 2px;
+	font-weight: bold;
+	font-size: 17px;
+}
+
+.span-for-get-smarrts {
+ position: relative;
+}
+
+
+.pre-smarrt-popup-comment {
+  overflow-wrap: break-word;
+  position:absolute;
+  z-index: 111;
+  top: 30px;
+  left: 30px;
+  max-width: 600px;
+  height: auto;
+  padding: 10px;
+  margin: 4px;
+  border-radius: 8px;
+  border: 2px solid #383d41;
+  font-size: 12px;
+  color: #141414;
+  background-color: white;
+  box-shadow: 13px 25px 50px 6px rgba(0,0,0,0.44);
+}
+
+
+.list-of-smarrts-before-smarrt-form {
+ position: relative;
+}
+
+.pre-smarrt-popup-friends {
+  overflow-wrap: break-word;
+  position:absolute;
+  z-index: 110;
+  top: 30px;
+  left: 30px;
+  width: 400px;
+  height: auto;
+  padding: 10px;
+  margin: 4px;
+  border-radius: 8px;
+  border: 2px solid #383d41;
+  font-size: 20px;
+  color: #141414;
+  background-color: white;
+  box-shadow: 13px 25px 50px 6px rgba(0,0,0,0.44);
+  font-size: 11px;
+}
+
+.pre-smarrt-popup-friends table {
+ left: 10px;
+ margin: 10px !important;
+}
+
+.pre-smarrt-popup-friends td { font-size: 12px; }
+
+
+.pre-smarrt-popup-friends .friend-popup-cross {
+	float: right;
+}
