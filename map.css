@@ -1,0 +1,40 @@
+﻿#outer-map {
+	height: 800px;
+	position: absolute;
+	width: 500px;
+	top: 170px;
+	left: 60%;
+	z-index: 4;
+}
+
+#nie-schow {
+	position: absolute;
+	overflow: hidden;
+	width: 0px;
+	height: 0px;
+	top: 170px;
+	left: 85%;
+	z-index: 3;
+}
+
+#map {
+	height: 500px;
+	position: absolute;
+	width: 500px;
+	top: 80px;
+	z-index: 2;
+}
+
+#pac-input {
+	
+	width: 400px;
+	font-size: x-small;
+}
+
+#map-text-details {
+	padding: 2px;
+	font-size: 12px;
+	overflow: hidden;
+	width: 0px;
+	height: 0px;
+}

@@ -1,0 +1,36 @@
+﻿html {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    padding: 20px;
+    margin: 20px;
+
+    width: 90%;
+    min-height: 100vh;
+    
+    background-color: #141414;
+    
+	font-size: 12px;
+	font-family: "Opel Sans Condensed"
+}
+
+
+.wybierz-fupa, .wybierz-proj, .wybierz-faze {
+	width: 120px;
+	font-size: 14px;
+}
+
+.get-input-data {
+}
+
+.get-input-data .fas {
+	color: white;
+	margin: 8px;
+}
+
+
+ul li {
+	font-size: 21px;
+}

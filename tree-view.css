@@ -1,0 +1,116 @@
+﻿ul {
+	list-style-type: none;
+}
+
+#tree-view {
+
+
+	margin: 2px;
+	padding: 1px;
+	
+	color: white;
+}
+
+.tabele-wizard-i-sharepoint table {
+	margin: 10px -300px;
+}
+
+
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+  color: pink;
+}
+
+.caret::before {
+  content: "\25B6";
+  color: white;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.caret-down {
+	color: lime;
+}
+
+.caret-down .btn-dark {
+	color: lime;
+}
+
+.caret-down::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */'
+  transform: rotate(90deg);  
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+
+#tree-view th, tr, td {
+	border: thin white solid;
+	border-collapse: collapse;
+}
+
+#tree-view td, #tree-view th {
+	margin: 0px;
+	padding: 4px;
+	color: white;
+	font-weight: bold;
+}
+
+#tree-view .part-name-td {
+	padding-left: 10px;
+	padding-right: 10px;
+	min-width: 360px;
+}
+
+#tree-view .supplier-td {
+	padding-left: 2px;
+	padding-right: 2px;
+	min-width: 300px;
+	background-color: gray;
+}
+
+.filtr-dostawcy-input {
+	min-width: 300px;
+	padding: 4px;
+	margin: 4px;
+}
+
+
+
+
+#tree-view .list-of-smarrts-before-smarrt-form {
+	color: white;
+	font-size: 16px;
+}
+
+
+
+#tree-view .tabela-danych-pod-smarrt {
+	font-size: 17px;
+}
+
+
+#tree-view .zrob-te-strzalki-zielone {
+ 
+	color: green;
+	padding: 8px;
+	border: solid 3px green;
+	border-radius: 100px;
+	
+	
+}
+
+#tree-view .b-irr-status {
+	font-size: 34px;
+}

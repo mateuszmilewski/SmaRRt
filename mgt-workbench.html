@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="pl" ng-app="MgtSmaRRt">
+
+	<head>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	    <title>MGT - WORKBENCH</title>
+	
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	    
+	
+	    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+	    <link rel="stylesheet" href="style.css">
+	    <link rel="stylesheet" href="loader.css">
+	    <link rel="stylesheet" href="map.css">
+	    <link rel="stylesheet" href="loading-input-data-loader.css">
+	    <link rel="stylesheet" href="tree-view.css">
+	    
+	    
+	    <script src="jquery.min.js"></script>
+	    
+	
+	    <script src="G.js"></script>
+	    <script src="wizard-standards.js"></script>
+	    <script src="tree-maker-lib.js"></script>
+
+	    <script src="easysharepoint.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
+	    <script src="dbRest.js"></script>
+	    
+	    <!-- <script src="init-map.js"></script> -->
+	</head>
+	
+	<body>
+	
+	    <!--- LOADERS !!! --->
+	    <div id="loader1" class="loader"></div>
+	    <!--- end of LOADERS --->
+	    
+	    
+	    
+		<div class="header" id="header" ng-controller="HeaderCtrl">
+			<nav class="navbar navbar-light bg-warning">
+			  <b>{{ appTitle }}</b>
+			</nav>
+			<div class="alert alert-secondary"> 
+				<h2 class="alert-heading">{{ hello }}</h2>				
+			</div>
+		</div>
+		
+		
+		
+		<div class="rr" id="rr" ng-controller="RRCtrl">
+			
+            <a ng-click="rr.downloadAllCsv()" class="btn btn-lg btn-primary" href="#">
+                Pobierz dane do CSV
+            </a>
+
+		</div>
+
+
+
+		<!-- <div id="map"></div> -->
+
+
+
+
+
+
+	    <script src="bootstrap.min.js"></script>
+
+	    
+	    <script src="angular.js"></script>
+	    <script src="angular-route.js"></script>
+	    <script src="angular-animate.js"></script>
+	    <script src="mgt-app.js"></script>
+	    <script src="ng-mgt-request-service.js"></script>
+	    
+	    
+		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi4qGILGZie-a4X6BbiyBitcy1aU3Kp2A&libraries=places&callback=initMap" async defer></script> -->
+	    
+  	    <script src="shim.min.js"></script>
+	    <script src="xlsx.full.min.js"></script>
+	    
+	    <script src="FileSaver.min.js"></script>
+
+
+
+	</body>
+
+</html>

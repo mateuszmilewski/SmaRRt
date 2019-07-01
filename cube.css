@@ -1,0 +1,50 @@
+﻿#cubeModal {
+	position: absolute;
+	z-index: 10;
+	overflow: hidden;
+	height: 0px;
+	width: 0px;
+	top: 100px;
+	background-color: white;
+	padding: 6px;
+	visibility: hidden;
+}
+
+
+#cubeModal div div div form {
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	background:#efefef;
+	padding:1em;
+	text-align:center;
+}
+
+
+#cubeModal #pokaz-wymiary {
+	position: absolute;
+	top: 100px;
+	left: 20px;
+}
+
+#cubeModal #pokaz-wymiary div {
+	font-weight: normal;
+	color: black;
+	font-size: 16px;
+}
+
+
+#cubeModal #pokaz-wymiary .zaznaczenie {
+	font-weight: bold;
+	color: red;
+}
+
+#cube-ref-summary {
+	font-size: 18px;
+	border: 2px solid gray;
+	text-align : center;
+	padding: 4px;
+	margin: 2px;
+	border-radius: 45;
+}
