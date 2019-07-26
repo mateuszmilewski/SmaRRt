@@ -12,7 +12,7 @@
 }
 
 .tabele-wizard-i-sharepoint table {
-	margin: 10px -300px;
+	margin: 10px -400px;
 }
 
 
@@ -97,18 +97,12 @@
 
 
 #tree-view .tabela-danych-pod-smarrt {
-	font-size: 17px;
+	font-size: 14px;
 }
 
 
 #tree-view .zrob-te-strzalki-zielone {
- 
 	color: green;
-	padding: 8px;
-	border: solid 3px green;
-	border-radius: 100px;
-	
-	
 }
 
 #tree-view .b-irr-status {

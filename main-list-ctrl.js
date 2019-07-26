@@ -13,7 +13,7 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	// main object
 	// initial graph
 	// plt -> resp -> fup -> proj -> phase -> mrd
-	$scope.tree = treeMaker.tree;
+	$scope.mainList.tree = treeMaker.tree;
 	$scope.plants = [];
 	
 	
@@ -22,6 +22,8 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	//$scope.itemInPlantsClickEvent = mainListEventHandler.common;
 	//$scope.itemInItemInPlantsClickEvent = mainListEventHandler.common;
 	$scope.spanClick = mainListEventHandler.common;
+	// more for bottom list function
+	// $scope.spanClicks = mainListEventHandler.doAllClicks;
 	//
 	//
 	
@@ -30,32 +32,32 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	//
 	//
 	$scope.makeFromPlant = function(item) {
-		let p = $scope.tree['' + item];
+		let p = $scope.mainList.tree['' + item];
 		return Object.keys(p);
 	}
 	
 	$scope.makeFromResp = function(item, resp) {
-		let x = $scope.tree['' + item]['' + resp];
+		let x = $scope.mainList.tree['' + item]['' + resp];
 		return Object.keys(x);
 	}
 	
 	$scope.makeFromFup = function(item, resp, fup) {
-		let x = $scope.tree['' + item]['' + resp]['' + fup];
+		let x = $scope.mainList.tree['' + item]['' + resp]['' + fup];
 		return Object.keys(x);
 	}
 	
 	$scope.makeFromProj = function(item, resp, fup, proj) {
-		let x = $scope.tree['' + item]['' + resp]['' + fup]['' + proj];
+		let x = $scope.mainList.tree['' + item]['' + resp]['' + fup]['' + proj];
 		return Object.keys(x);
 	}
 
 	$scope.makeFromFaza = function(item, resp, fup, proj, faza) {
-		let x = $scope.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza];
+		let x = $scope.mainList.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza];
 		return Object.keys(x);
 	}
 	
 	$scope.makeFromMrd = function(item, resp, fup, proj, faza, mrd, filtr) {
-		let x = $scope.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd];
+		let x = $scope.mainList.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd];
 		let pre = Object.keys(x);
 		let toReturn = [];
 		pre.forEach( (e) => {
@@ -68,10 +70,22 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	}
 	
 	$scope.makeFromDuns = function(item, resp, fup, proj, faza, mrd, duns) {
-		let dunsHandler = $scope.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
+		let dunsHandler = $scope.mainList.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
 		return dunsHandler.x;
 	}
-
+	
+	
+	
+	
+	// toggle availability for part numbers in the list for pus.
+	$scope.toggleAll = function(item, resp, fup, proj, faza, mrd, duns) {
+		let dunsHandler = $scope.mainList.tree['' + item]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
+		// return dunsHandler.x;
+		
+		dunsHandler.x.forEach( (item) => {
+			item.data[7] = !(item.data[7]);
+		});
+	}
 
 	
 	//
@@ -88,7 +102,7 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 		let regExpByFiltrDuns = ptrn.test( e );
 		let regExpBySupplierName = true;
 		
-		let dunsHandler = $scope.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + e]
+		let dunsHandler = $scope.mainList.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + e]
 		
 		let supplierName = "";
 		
@@ -103,8 +117,8 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	//
 	
 	
-	$scope.dupa = function(x) {
-		console.log("dupa: ", x);
+	$scope.ddd = function(x) {
+		console.log("ddd: ", x);
 	}
 	
 	
@@ -120,7 +134,7 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	
 	
 	$scope.getSupplierName = function( plt, resp, fup, proj, faza, mrd, duns ) {
-		return $scope.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns].x[0].name;
+		return $scope.mainList.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns].x[0].name;
 	}
 	
 	$scope.loadSupplierDataFromSpAndCreateRoomRequestProperty = function(plt, resp, fup, proj, faza, mrd, duns) {
@@ -134,9 +148,17 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 		$.when( loadSuppliersByDuns(duns) ).done( (data) => {
 			$scope.loadedSupplierFromSharepoint = data;
 			
-			let tmpDataFromDuns = $scope.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];			
+			let tmpDataFromDuns = $scope.mainList.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];			
 			tmpDataFromDuns.sharepoint = data;
-			tmpDataFromDuns.sharepoint.source = ""; // jak SP to nie dajemy nic
+			tmpDataFromDuns.sharepoint.source = ""; // jak SP to nie dajemy nicmakeFromDuns
+			
+			//
+			//
+			//
+			// HERE!
+			// IMPORTANT!
+			// by default on start we overwrite data on supplier list on sharepoint
+			tmpDataFromDuns.addNewSupplierQ = true;
 			
 			// important!
 			// stworzenie nowego sub-obiektu dla danych pod room request
@@ -155,6 +177,7 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 				MRD: mrd,
 				STATUS: 0,
 			});
+			
 			console.log("loadSupplierDataFromSpAndCreateRoomRequestProperty  -> tmpDataFromDuns.RR ", tmpDataFromDuns.RR);
 			
 			//
@@ -197,12 +220,12 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 			//
 			// $scope.$apply(); // do not need this 
 			
-			console.log("main-list-ctrl -> loadSupplierDataFromSp ", $scope.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns]);
+			console.log("main-list-ctrl -> loadSupplierDataFromSp ", $scope.mainList.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns]);
 
 			// push data into req service //
 			//
 			// 
-			let dataForReqService = $scope.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
+			let dataForReqService = $scope.mainList.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
 			RequestsService.setDataForSmarrtForm( dataForReqService );
 			//
 			//
@@ -227,7 +250,7 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	$scope.getDownloadedSharepointDataSupplier = function(plt, resp, fup, proj, faza, mrd, duns) {
 	
 	
-		let tmp = $scope.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
+		let tmp = $scope.mainList.tree['' + plt]['' + resp]['' + fup]['' + proj]['' + faza]['' + mrd]['' + duns];
 		//console.log("getDownloadedSharepointDataSupplier : ", tmp);
 	
 		if( !!(tmp) ) {
@@ -267,7 +290,6 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	    			
 	    			
 	    			
-	    			
 	    			// MAIN LOOP to FILL data in TREE! 
 	    			//////////////////////////////////////////////////////////////////////////////////////////
 	    			//////////////////////////////////////////////////////////////////////////////////////////
@@ -293,8 +315,8 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 	    			
 	    			
 	    			// show me
-	    			console.log(" master tree => ", $scope.tree);
-	    			$scope.plants = Object.keys($scope.tree);
+	    			console.log(" master tree => ", $scope.mainList.tree);
+	    			$scope.plants = Object.keys($scope.mainList.tree);
 	    			//delete $scope.plants.id;
 	    			//$scope.$apply();
 	    		}
@@ -359,6 +381,10 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
 		
 		arr.push( order );
 		arr.push( conf );
+		
+		
+		// which pns will go to pus!
+		arr.push( true );
 
 
 
@@ -398,10 +424,10 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
     	
     	
     	let ptrnProj = new RegExp( filterOnProj );
-		let regExpByProj = ptrnProj.test( proj );
+			let regExpByProj = ptrnProj.test( proj );
 		
     	let ptrnFaza = new RegExp( filterOnFaza );
-		let regExpByFaza = ptrnFaza.test( faza );
+			let regExpByFaza = ptrnFaza.test( faza );
 
 
     	
@@ -463,6 +489,13 @@ SmaRRt.controller("MainListCtrl", function($scope, RequestsService) {
     		return null;
     	}
     }
+    
+    
+
+	$scope.mainList.smarrtFormVisible = true;
+	$scope.mainList.toggleSmarrtFormVisibility = function() {
+		$scope.mainList.smarrtFormVisible = !($scope.mainList.smarrtFormVisible);
+	}
 
 
 

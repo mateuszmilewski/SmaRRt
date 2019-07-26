@@ -1,0 +1,21 @@
+﻿<div class="pre-smarrt-popup-friends" ng-show="(preSmarrt.friendsPopupIsVisible)">
+	<div class="friend-popup-cross" ng-click="preSmarrt.justCloseThisFormWithoutAnyAction()">X</div>
+	<div>
+		<span>List of SmaRRts for {{ plt }}, with status: 1; optional filter: </span><input ng-model="preSmarrt.friendsFilter" ng-change="preSmarrt.friendsInputChanged()">
+	</div>
+	<table>
+		<tr 
+			ng-repeat="srrt in preSmarrt.filteredArrayOfDedicatedSmarrts" 
+			ng-class="{'badge-success': ($index == preSmarrt.activeFriend ), 'badge-primary': ($index != preSmarrt.activeFriend )}" 
+			ng-click="preSmarrt.onClickForFriend($index, srrt)">
+			<!-- {{ preSmarrt.makeStringFromSmarrtObj( srrt ) }} -->
+				<td>{{ srrt.FUP }}</td>
+				<td><b>{{ srrt.ID }}</b></td>
+				<td>{{ srrt.FMA.DUNS }}</td>
+				<td>{{ srrt.FMA.SupplierName }}</td>
+
+		</tr>
+	</table>
+	
+	<button class="btn btn-danger" ng-click="preSmarrt.submitFriend()"> Zatwierdź przyjaciela </button>
+</div>

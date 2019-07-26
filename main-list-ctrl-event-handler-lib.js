@@ -44,11 +44,76 @@
 				let element = document.getElementById(ajdi);
 			
 				element.parentElement.querySelector(".nested").classList.toggle("active");
-		    	element.classList.toggle("caret-down");
-		    }
+		    element.classList.toggle("caret-down");
+		  }
 	    
-	    }
+	  }
 
+	}
+	
+	let innerDoAllClicks = function(arr) {
+		
+		let ajdi = '';
+		let element;
+		
+		if( arr.length > 0 ) {
+			
+			// sam plt
+			ajdi = 'tree-' + arr[0];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+	    
+	    
+	    ajdi = 'tree-' + arr[0] + '-' + arr[1];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+	    
+	    ajdi = 'tree-' + arr[0] + '-' + arr[1] + '-' + arr[2];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+	    
+	    
+	    ajdi = 'tree-' + arr[0] + '-' + arr[1] + '-' + arr[2] + '-' + arr[3];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+	    
+	    
+	    ajdi = 'tree-' + arr[0] + '-' + arr[1] + '-' + arr[2] + '-' + arr[3] + '-' + arr[4];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+
+
+	    ajdi = 'tree-' + arr[0] + '-' + arr[1] + '-' + arr[2] + '-' + arr[3] + '-' + arr[4] + '-' + arr[5];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+	    
+	    
+	    // DUNS // to much... need to load xtra data - ng-click in button here also with logic in main-ctrl
+	    /*
+	    ajdi = 'tree-' + arr[0] + '-' + arr[1] + '-' + arr[2] + '-' + arr[3] + '-' + arr[4] + '-' + arr[5] + '-' + arr[6];
+			element = document.getElementById(ajdi);
+			
+			element.parentElement.querySelector(".nested").classList.add("active");
+	    element.classList.add("caret-down");
+	    */
+
+
+
+
+			
+		}
 	}
 	
 	
@@ -56,6 +121,7 @@
         plt: innerPlt,
         resp: innerResp,
         common: innerCommon,
+        doAllClicks: innerDoAllClicks,
     };
 
 })("mainListEventHandler");

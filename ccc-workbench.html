@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="dnd">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Drag and drop CCC-Workbench</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="ccc-dnd-style.css">
+    <link rel="stylesheet" href="loader.css">
+    
+    
+    
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+
+	  <script src="G.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="ccc-dnd-v.js"></script>
+	  <script src="easysharepoint.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
+	  <script src="dbRest.js"></script>
+	  
+	  <script src="bootstrap.min.js"></script>
+
+
+
+		<script>
+		
+      setTimeout(function() {
+      	document.getElementsByTagName("html")[0].style.visibility = "hidden";
+        $("#loader1").show();
+      }, 10);
+
+		
+		
+			$.when(loadRoomRequestsByStatusWithoutFriends(1)).done(function(data) {     	
+				G_EXTERNAL_DATA = data;        	       
+			});
+
+		</script>
+
+
+</head>
+
+<body>
+
+		<div id="loader1" class="loader"></div>
+
+
+    <div class="main-div" ng-controller="mainCtrl">
+
+
+        <nav class="navbar navbar-light bg-warning nav-custom-title"> Drag 'n Drop Interface for CCC</nav>
+
+
+
+        <div class="mybox" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+						
+						<h2 class="mybox-title"> Fresh Room Requests from FMA team (STATUS = 1). </h2>
+						<div class="filter-for-list-section">
+							<span>FILTER: </span><input ng-model="main.filterInput" ng-change="main.onChange()">
+						</div>
+
+            <div draggable="true" ondragstart="drag(event)" id="drag{{item.ID}}" ng-repeat="item in main.filteredColl">
+                <h2 ng-click="main.hideAllDetails(); $event.stopPropagation();"> 
+                	{{ item.FMA.SupplierName }} 
+                	<button class="btn btn-primary" ng-click="main.toggleShowSupplierDetails(); $event.stopPropagation();">Supplier details</button>
+                	<button class="btn btn-danger" ng-click="main.toggleShowFMADetails(); $event.stopPropagation();">FMA details</button>
+                </h2>
+                <div ng-show="main.showSupplierDetails">
+                	<table class="ccc-table-with-smarrt-details">
+                		<tr>
+                			<th> ID </th>
+                			<th> RRID </th>
+                			<th> CC </th>
+                			<th> CITY </th>
+                			<th> ADDRESS </th>
+                		</tr>
+                  	<tr>
+                  		<td> <span class="span-for-item-id"> {{ item.ID }} </span></td>
+                  		<td> <span class="span-for-item-rr-id"> {{ item.RR_ID }} </span></td>
+                  		<td> {{ item.FMA.CC }} </td>
+                  		<td> {{ item.FMA.City }} </td>
+                  		<td> {{ item.FMA.Address }} </td>
+                  	</tr>
+                </table>
+                </div>
+                
+                <div ng-show="main.showFMADetails">
+                	<table class="ccc-table-with-smarrt-details">
+                		<tr>
+                			<th> Plant, Project, Phase, MRD </th>
+                			<th> DeadlineInPlant </th>
+                			<th> PossiblePickUp</th>
+                			<th> Dim </th>
+                			<th> FMA_Remarks </th>
+                		</tr>
+                  	<tr>
+                  		<td> {{item.PLT }}, {{ item.Project }}, {{ item.FAZA }}, {{ item.MRD }} </td>
+                  		<td> {{ item.FMA.DeadlineInPlant }} </td>
+                  		<td> {{ item.FMA.PossiblePickUp }} </td>
+                  		<td> {{ item.FMA.Dim }} </td>
+                  		<td> {{ item.FMA.FMA_Remarks }} </td>
+                  	</tr>
+                </table>
+                </div>
+
+                
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+        <div class="workbench-area">
+            <h2 class="mybox-title"> Workbench Area (to be STATUS = 2) </h2>
+
+            <div class="mybox-workbench" id="div-wrkbnch-area-1" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+            </div>
+
+            <div class="ccc-feedback-form">
+                <h3>CCC Feedback Form</h3>
+
+                <div class="ccc-form-content">
+
+                    <table>
+                        <tr>
+                            <td><label>Route available: </label></td>
+                            <td><input type="text" placeholder="Route available" ng-model="main.cccin.routeAvailable" class="ccc-in ccc-in-route-available"></td>
+                            <td><label>Route: </label></td>
+                            <td><input type="text" placeholder="Route" ng-model="main.cccin.route" class="ccc-in ccc-in-route"></td>
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        <tr>
+                            <td><label>Carrier Code or Name: </label></td>
+                            <td><input type="text" placeholder="Carrier Code or Name" ng-model="main.cccin.carrierCodeOrName" class="ccc-in ccc-in-carrier-code-name"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Pick Up date: </label></td>
+                            <td><input type="datetime-local" placeholder="Pick Up Date and Time" ng-model="main.cccin.pickupDate" class="ccc-in ccc-in-pu-date-time"></td>
+                            <td><label>Delivery date: </label></td>
+                            <td><input type="datetime-local" placeholder="Delivery Date and Time" ng-model="main.cccin.deliveryDate" class="ccc-in ccc-in-del-date-time"></td>
+                        </tr>
+                        <tr>
+                            <td><label>RDC date: </label></td>
+                            <td><input type="datetime-local" placeholder="RDC Date and Time" ng-model="main.cccin.rdcDate" class="ccc-in ccc-in-rdc-date-time"></td>
+                            <td><label>RDC Code: </label></td>
+                            <td><input type="text" placeholder="RDC Code" ng-model="main.cccin.rdcCode" class="ccc-in ccc-in-rdc-code"></td>
+
+                        </tr>
+                        <tr>
+                            <td><label>Customs material: </label></td>
+                            <td><input type="checkbox" ng-model="main.cccin.customsMaterial" class="ccc-in ccc-in-customs"></td>
+                            <td><label>Type of service: </label></td>
+                            <td><input type="text" placeholder="Type of service" ng-model="main.cccin.typeOfService" class="ccc-in ccc-in-type"></td>
+                        </tr>
+                        <tr>
+                            <td><label>PTA: </label></td>
+                            <td><input type="checkbox" ng-model="main.cccin.PTA" class="ccc-in ccc-in-pta"></td>
+                            <td><label>Estimated cost of PTA: </label></td>
+                            <td><input type="text" ng-model="main.cccin.ptaCost" class="ccc-in ccc-in-est-cost-pta"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Xtra remarks: </label></td>
+                            <td><input type="text" placeholder="Xtra remarks" ng-model="main.cccin.xtraComments" class="ccc-in ccc-in-remarks"></td>
+                        </tr>
+                    </table>
+
+
+
+                    <button ng-click="main.form.submit.changeStatus()" class="btn btn-primary ccc-submit-form"> Submit </button>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script src="angular-animate.js"></script>
+    <script src="ccc-dnd-ctrl.js"></script>
+
+
+</body>
+
+</html>

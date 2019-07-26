@@ -1,0 +1,48 @@
+﻿<!-- MAP -->
+<div id="nie-schow">
+	<button id="nie-schow-btn" class="btn btn-warning map-pac btn-sm" ng-click="nieSchow()"> <i class="fas fa-arrow-circle-left fa-2x"></i> </button>
+</div>
+<div id="outer-map">
+	<div id="map"></div>
+	<button id="pac-button-min" class="btn btn-dark map-pac btn-sm" ng-click="minMap()">_</button>
+	<button id="pac-button-max" class="btn btn-dark map-pac btn-sm" ng-click="normMap()">[]</button>
+	<button id="pac-button-max" class="btn btn-dark map-pac btn-sm" ng-click="maxMap()">[ ]</button>
+	<button id="pac-button-md" class="btn btn-dark map-pac btn-sm" ng-click="mapAndDetails()">[][]</button>
+	<button id="schow-btn" class="btn btn-warning map-pac btn-sm" ng-click="schow()"> <i class="fas fa-arrow-circle-right fa-2x"></i> </button>
+	<br>
+	<input id="pac-input" class="controls map-pac" type="text" placeholder="Wprowadź inną lokalizację dla wybranego room requestu">
+	<button id="pac-button" class="btn btn-secondary map-pac" ng-click="getDetailsFromPacInput()">Pokaż</button>
+	
+	<hr class="my-2">
+	<button id="map-details-button-min" class="btn btn-light map-details-btn btn-sm" ng-click="minMapDetails()">_</button>
+	<button id="map-details-button-max" class="btn btn-light map-details-btn btn-sm" ng-click="maxMapDetails()">[]</button>
+
+	<div id="map-text-details" class="jumbotron">
+		
+		<div class="card">
+			<div class="card-header">Detale lokalizacji, którą wybrałeś/wybrałaś: </div>
+			<div class="card-body">
+				Nazwa dostawcy: <span> {{ mapHandler.nm }} </span>
+				<hr class="my-2">
+				Adres: <span id="map-text-details-adr" > {{ mapHandler.adr }} </span>
+				<hr class="my-1">
+				Vicinity: <span id="map-text-details-vic" > {{ mapHandler.vic }} </span>
+				<hr class="my-1">
+				Telefon: <span id="map-text-details-tel" > {{ mapHandler.tel }} </span>
+				<hr class="my-2">
+				ID (Google Maps): <span id="map-text-details-pid"> {{ mapHandler.placeid }} </span>
+				<hr class="my-1">
+				Lat (Google Maps): <span id="map-text-details-lat"> {{ mapHandler.lat }} </span>
+				<hr class="my-1">
+				Lng (Google Maps): <span id="map-text-details-lng"> {{ mapHandler.lng }} </span>
+				<hr class="my-1">
+				LINK (Google Maps): <br><a href="{{ mapHandler.url }}" target="_blank" rel="noopener noreferrer"> {{ mapHandler.url }} </a>
+		<hr class="my-1">
+				<button class="btn btn-success" ng-click="mapHandler.updateSelectedSupplierFromMap()"><span class="fas fa-angle-double-left"></span> Aktualizuj dane dostawcy</button>
+
+			</div>
+		</div>
+		
+		
+	</div>
+</div>

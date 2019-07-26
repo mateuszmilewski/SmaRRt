@@ -1,0 +1,57 @@
+﻿<div>
+	<div class="cube-modal-content">
+		<div class="cube-modal-header">
+			<button ng-click="cubesHandler.schow()" type="button" class="close" data-dismiss="modal">X</button>
+			<h4 class="cube-modal-title">{{ cubesHandler.Name }}</h4>
+		</div>
+		<div class="cube-modal-body">
+			
+			<canvas id="cube-canvas" width="1200" height="600"></canvas>
+			
+			<form>
+				WAGA: <input id="waga1" type="range" value="1" min="1" max="1000" step="5" ng-model="cubesHandler.w1w1" ng-change="cubesHandler.updateValsFromRange()">
+				<input id="wagaNum1" type="number" value="cubesHandler.w1w1" ng-model="cubesHandler.w1w1" ng-change="cubesHandler.updateValsFromNum()">
+				
+				ILE BOXÓW: <input id="q1" type="range" value="1" min="1" max="100" step="5" ng-model="cubesHandler.q1q1" ng-change="cubesHandler.updateValsFromRange()">
+				<input id="qNum1" type="number" value="cubesHandler.q1q1" ng-model="cubesHandler.q1q1" ng-change="cubesHandler.updateValsFromNum()">
+				
+				<br>
+				X: <input id="x1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.x1x1" ng-change="cubesHandler.updateValsFromRange()">
+				<input id="xNum1" type="number" value="cubesHandler.x1x1" ng-model="cubesHandler.x1x1" ng-change="cubesHandler.updateValsFromNum()">
+				Y: <input id="y1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.y1y1" ng-change="cubesHandler.updateValsFromRange()">
+				<input id="yNum1" type="number" value="cubesHandler.y1y1" ng-model="cubesHandler.y1y1" ng-change="cubesHandler.updateValsFromNum()">
+				Z: <input id="z1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.z1z1" ng-change="cubesHandler.updateValsFromRange()">
+				<input id="zNum1" type="number" value="cubesHandler.z1z1" ng-model="cubesHandler.z1z1" ng-change="cubesHandler.updateValsFromNum()">
+				<br>
+				<input id="color1" type="color" value="#ff8d4b" ng-model="cubesHandler.c1c1">
+			</form>
+			
+			<div id="pokaz-wymiary">
+				<div class="cube-ref" id="cube-ref-x1"> X: {{ cubesHandler.x1x1}} cm</div>
+				<div class="cube-ref" id="cube-ref-y1"> Y: {{ cubesHandler.y1y1}} cm</div>
+				<div class="cube-ref" id="cube-ref-z1"> Z: {{ cubesHandler.z1z1}} cm</div>
+				<div><b> Wymiary: {{ cubesHandler.currDim }} ; ILE BOX'ów: {{ cubesHandler.q1q1 }} </b></div>
+				<div><b> waga: {{ cubesHandler.w1w1}} kg </b></div>
+				<button class="btn btn-success" ng-click="cubesHandler.submitNewDims()">Dodaj pudełko</button>
+				<button class="btn btn-danger" ng-click="cubesHandler.resetPackaging()">Reset</button> 
+				<br>
+				<div class="cube-ref-summary" id="cube-ref-summary">
+					<div id="cube-ref-dim-str"> 
+						Wszystkie wymiary: {{ cubesHandler.RR.cubesRefDimsStr }} (w cm)
+					</div>
+					<div id="cube-ref-dim-str"> 
+						Ile kontenerów: {{ cubesHandler.RR.numOfCont }}
+					</div>
+					<div id="cube-ref-dim-str"> 
+						Waga całkowita: {{ cubesHandler.RR.weight }} kg
+					</div>
+				</div>
+				
+				<button class="btn btn-success" ng-click="cubesHandler.submitPackagingIntoRR()">Dodaj pudełka do SmaRRta</button>
+
+			</div>
+			
+		</div>
+	</div>
+  
+</div>

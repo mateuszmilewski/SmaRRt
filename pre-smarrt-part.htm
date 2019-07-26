@@ -1,0 +1,32 @@
+﻿<!-- span with a get a friend -->
+<span ng-click="preSmarrt.arrowClicked(plt)">
+	<i class="fas fa-arrow-right fa-3x zrob-te-strzalki-zielone "></i>
+</span>
+<!-- end of friend span -->
+
+
+
+<span
+	class="span-for-get-smarrts" 
+	ng-repeat="irr in preSmarrt.getSmarrts(plt, resp, fup, proj, faza, mrd, duns)">
+	 
+	<i 
+		ng-class="{'fab fa-creative-commons-share fa-3x': ((irr.FMA.FMA_Remarks == 'FRIEND') && !!(irr.STATUS)), 'fas fa-registered fa-3x': ((irr.FMA.FMA_Remarks != 'FRIEND') && !!(irr.STATUS)), 'far fa-circle fa-3x': (irr.STATUS == 0)}"
+		ng-mouseover="preSmarrt.showPopup(irr, $index)"
+		ng-mouseleave="preSmarrt.hidePopup($index)"
+		ng-click="preSmarrt.PUS.showPopup(irr, $index, plt, resp, fup, proj, faza, mrd, duns)">
+	</i>
+	
+	<b class="b-irr-status">{{ irr.STATUS }} </b>
+	
+	
+	<div class="pre-smarrt-popup-comment" ng-show="(preSmarrt.popupIsVisible) && ($index == preSmarrt.whichIndexVisible)">
+		{{ preSmarrt.generateContentForPopup(irr, $index) }}
+	</div>
+	
+
+</span>
+
+<div ng-include="'little-friend-form.htm'"></div>
+<div ng-include="'little-pus-form.htm'"></div>
+

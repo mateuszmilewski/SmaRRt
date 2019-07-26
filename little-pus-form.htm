@@ -1,0 +1,289 @@
+﻿<div class="pre-smarrt-popup-pus" ng-show="(preSmarrt.PUS.popupIsVisible)">
+
+	<div class="pus-popup-cross" ng-click="preSmarrt.PUS.justCloseThisFormWithoutAnyAction()">X</div>
+
+	<div class="jumbotron">
+				
+		<hr class="my-2">
+			
+		<span class="col-md-6">
+			<b class="pus-form-head">{{proj}} {{faza}} {{mrd}}</b>
+		</span>
+		<span class="col-md-6">
+			<b class="pus-form-head">Supplier DUNS: {{duns}}</b>
+		</span>
+		<hr class="my-1">
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">PUS #</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz PUS #"
+				id="pus-num-{{duns}}" 
+				ng-model="preSmarrt.PUS.PusNumber">
+		</div>
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">City</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz miasto"
+				id="pus-city-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.FMA.City">
+				
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">Address</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control"
+				placeholder="Wpisz adres" 
+				id="rr-address-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.FMA.Address">
+		</div>
+		
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">ZIP</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz ZIP"
+				id="pus-zip-{{duns}}" 
+				ng-model="preSmarrt.PUS.leaf.sharepoint[0].ZIP">
+				
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">CC</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz CC"
+				id="pus-cc-{{duns}}" 
+				ng-model="preSmarrt.PUS.leaf.sharepoint[0].CC">
+
+		</div>
+
+		
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">Contact</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz imię swojego kontaktu"
+				id="pus-contact-{{duns}}" 
+				ng-model="preSmarrt.PUS.leaf.sharepoint[0].Contact">
+		</div>
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">Mail</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz e-mail swojego kontaktu"
+				id="pus-mail-{{duns}}" 
+				ng-model="preSmarrt.PUS.leaf.sharepoint[0].Mail">
+		</div>
+
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">Phone</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz numer telefonu swojego kontaktu"
+				id="pus-phone-{{duns}}" 
+				ng-model="preSmarrt.PUS.leaf.sharepoint[0].Phone">
+		</div>
+		
+		
+		
+		<hr class="my-1">
+		
+			<span>
+				<b class="pus-form-head">CCC Feedback</b>
+			</span>
+		
+		<hr class="my-1">
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">DELIVERY DATE</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz delivery date"
+				id="pus-delivery-date-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.DELIVERY_DATE">
+				
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">Pickup Date</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control"
+				placeholder="Wpisz pickup date" 
+				id="rr-pickup-date-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.PickupDate">
+		</div>
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">RDC_Code</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz rdc code"
+				id="pus-rdc-code-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.RDC_Code">
+				
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">RDC_Date</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control"
+				placeholder="Wpisz rdc date" 
+				id="rr-rdc-date-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.RDC_Date">
+		</div>
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">CarrierCode</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz rdc code"
+				id="pus-carrier-code-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.CarrierCode">
+				
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">CustomsMaterial</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control"
+				placeholder="Wpisz rdc date" 
+				id="rr-customs-material-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.CustomsMaterial">
+		</div>
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">Route</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz route"
+				id="pus-r-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.Route">
+				
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">RouteAvailable</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control"
+				placeholder="Wpisz RouteAvailable" 
+				id="rr-ra-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.RouteAvailable">
+		</div>
+		
+		
+		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">EstimatedCostForPTA</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz PTA Cost"
+				id="pus-pta-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.EstimatedCostForPTA">
+
+			<div class="input-group-prepend">
+				<span class="input-group-text badge-secondary">ServiceType</span>
+			</div>
+			<input 
+				type="text" 
+				class="form-control" 
+				placeholder="Wpisz service type"
+				id="pus-st-{{duns}}" 
+				ng-model="preSmarrt.PUS.RR.CCC.ServiceType">
+		</div>
+
+
+
+
+
+
+		
+
+	</div>
+	
+
+
+	<button class="btn btn-danger" ng-click="preSmarrt.PUS.submitPUS()"> {{ preSmarrt.PUS.submitBtnCaption }} </button>
+	<button class="btn btn-warning" ng-click="preSmarrt.PUS.changeRRStatus(3)" ng-show="(preSmarrt.PUS.innerTableVisible)"> <b>MAKE STATUS 3</b> </button>
+	
+	
+	<div class="pus-inner-tabel-after-submission" ng-show="(preSmarrt.PUS.innerTableVisible)">
+		<div class="jumbotron">
+			<table class="matrix-for-pus-data-in-jenny">
+				<tr>
+					<th>PLT</th>
+					<th>PROJ</th>
+					<th>DUNS</th>
+					<th>PN</th>
+					<th>CQTY</th>
+				</tr>
+				<tr ng-repeat="item in preSmarrt.PUS.leaf.x" ng-if="item.data[7] == true">
+					<td>{{ plt }}</td>
+					<td>{{ proj }}</td>
+					<td>{{ duns }}</td>
+					<td>{{ item.data[0] }}</td>
+					<td>{{ item.data[6] }}</td>
+				</tr>
+			</table>
+			
+			<table class="matrix-for-pus-data-in-jenny" id="matrix-for-pus-data-in-jenny-{{duns}}" ng-click="preSmarrt.PUS.youClickedOnTable(duns)">
+				<tr ng-repeat="item in preSmarrt.PUS.rawMatrix">
+					<td> {{ item.col1 }} </td>
+					<td> {{ item.col2 }} </td>
+					<td> {{ item.col3 }} </td>
+					<td> {{ item.col4 }} </td>
+				</tr>
+			</table>
+		</div>
+		
+		<button class="btn btn-success" ng-click="preSmarrt.PUS.hideTable()"> Schowaj tabele </button>
+	</div>
+	
+	
+</div>

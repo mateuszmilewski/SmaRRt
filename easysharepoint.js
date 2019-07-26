@@ -23,6 +23,9 @@ var headers = {
     }
 }
 
+
+
+
 function loadUserDetails(site) {
     return $.ajax({
         url: site + "/_api/web/currentuser",
@@ -61,6 +64,22 @@ function getAllListItems(webUrl, listName) {
     });
 
 }
+
+
+function getAllFilenames(webUrl, listName) {
+
+    return $.ajax({
+        url: webUrl + "/_api/web/lists/GetByTitle('" + listName + "')/items?$select=FileLeafRef",
+        async: false,
+        type: "GET",
+        headers: headers["GET"]
+
+    });
+
+}
+
+
+
 
 function getAllListItemsSync(webUrl, listName) {
 

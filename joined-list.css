@@ -1,0 +1,10 @@
+﻿.joined-list-table {
+ padding: 3px;
+ margin: 2px;
+ color: white;
+}
+
+.joined-list-table tr td {
+ padding: 2px;
+ margin: 1px;
+}
