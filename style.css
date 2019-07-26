@@ -13,19 +13,32 @@ body {
     background-color: #141414;
     
 	font-size: 12px;
-	font-family: "Opel Sans Condensed"
+	font-family: "Opel Sans Condensed";
 }
 
 
 .wybierz-fupa, .wybierz-proj, .wybierz-faze {
-	width: 120px;
-	font-size: 14px;
+	width: 140px;
+	font-size: 17px;
+}
+
+.wybierz-file {
+ width: 200px;
+ font-size: 13px;
+ padding: 2px;
+ margin: 2px;
+ border: medium red solid;
+}
+
+.fa-custom-color-white {
+ 
+ color: white;
 }
 
 .get-input-data {
 }
 
-.get-input-data .fas {
+.get-input-data button  {
 	color: white;
 	margin: 8px;
 }
@@ -33,4 +46,10 @@ body {
 
 ul li {
 	font-size: 21px;
+}
+
+
+.quick-stats div {
+ 
+ font-size: 140%;
 }

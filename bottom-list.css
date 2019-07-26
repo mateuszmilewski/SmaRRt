@@ -1,0 +1,26 @@
+﻿.bottom-smarrt-list {
+	padding: 20px;
+	margin: 20px;
+}
+
+
+.bottom-smarrt-list h3 {
+ color: white;
+}
+
+
+.bottom-smarrt-list .table-for-bottom-list {
+	font-size: 17px;
+	border: border: 1px solid white;
+	color: white;
+}
+
+.bottom-smarrt-list .table-for-bottom-list tr,
+.bottom-smarrt-list .table-for-bottom-list th,
+.bottom-smarrt-list .table-for-bottom-list td {
+	border: border: 1px solid white;
+	color: white;
+	padding: 2px;
+	margin: 2px;
+	font-size: small;
+}

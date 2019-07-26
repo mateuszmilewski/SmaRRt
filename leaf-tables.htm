@@ -1,0 +1,73 @@
+﻿<div class="badge badge-info badge-pill">Tabela danych z Wizarda: </div>
+<table class="tabela-danych-pod-smarrt tabela-numerow-czesci">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>PN</th>
+			<th>PName</th>
+			<th>DUNS</th>
+			<th>Dostawca</th>
+			<th>Total Qty</th>
+			<th>MRD1 Ordered QTY</th>
+			<th>MRD1 confirmed qty.</th>
+			<th ng-click="toggleAll(plt, resp, fup, proj, faza, mrd, duns)">GET</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="dataFromArray in makeFromDuns(plt, resp, fup, proj, faza, mrd, duns)">
+			<td>#</td>
+			<td>{{dataFromArray.data[0]}}</td>
+			<td class="part-name-td">{{dataFromArray.data[1]}}</td>
+			<td>{{dataFromArray.data[2]}}</td>
+			<td class="supplier-td" ng-click="passSuppliernameIntoMap(dataFromArray.data[3])">{{dataFromArray.data[3]}}</td>
+			<td>{{dataFromArray.data[4]}}</td>
+			<td>{{dataFromArray.data[5]}}</td>
+			<td>{{dataFromArray.data[6]}}</td>
+			<td><input type="checkbox" ng-model="dataFromArray.data[7]"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- LISTA DOSTAWCOW z SP -->
+<!-- <div>{{ getDownloadedSharepointDataSupplier(plt, resp, fup, proj, faza, mrd, duns) }}</div> -->
+<div class="badge badge-danger badge-pill">Tabela danych z Sharepoint:</div>
+<table class="tabela-danych-pod-smarrt tabela-dostawcow-z-sp">
+	<thead>
+		<tr>
+			<th>DUNS</th>
+			<th>Nazwa</th>
+			<th>Address</th>
+			<th>Contact</th>
+			<th>Phone</th>
+			<th>Mail</th>
+			<th>SRC</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="supplierForSupplierTable in getDownloadedSharepointDataSupplier(plt, resp, fup, proj, faza, mrd, duns)">
+			<td>
+				{{ supplierForSupplierTable.DUNS }}
+			</td>
+			<td ng-click="passSuppliernameIntoMap(supplierForSupplierTable.Supplier)">
+				{{ supplierForSupplierTable.Supplier  }}
+			</td>
+			<td ng-click="passSuppliernameIntoMap(supplierForSupplierTable.Address)">
+				{{ supplierForSupplierTable.Address  }}
+			</td>
+			<td>
+				{{ supplierForSupplierTable.Contact  }}
+			</td>
+			<td>
+				{{ supplierForSupplierTable.Phone  }}
+			</td>
+			<td>
+				{{ supplierForSupplierTable.Mail  }}
+			</td>
+			<td>
+				{{ supplierForSupplierTable.source  }}
+			</td>
+
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,43 @@
+﻿<div class="container">
+	<nav class="navbar navbar-light bg-warning">
+		
+		
+		<h2>{{ joinedList.headingForJoinedList }}</h2>
+		
+    <button class="btn btn-danger" id="btn-get-now-all-rr" ng-click="joinedList.downloadJoinedList()">
+     <h3>
+     <i class="fas fa-download"></i>
+     	Pobierz <u>Joined List</u> do CSV
+     </h3>
+    </button>
+
+	</nav>
+	
+	<div class="container">
+	
+	
+		<table class="joined-list-table">
+			<tr>
+				<th>PLT</th>
+				<th>RESP</th>
+				<th>FUP</th>
+				<th>PROJ</th>
+				<th>FAZA</th>
+				<th>MRD</th>
+				<th>DUNS</th>
+				<th>Count SmaRRts</th>
+			</tr>
+			<tr ng-repeat="item in joinedList.tabelaWynikowa.arr">
+				<td> {{ item[1] }}</td>
+				<td> {{ item[2] }}</td>
+				<td> {{ item[3] }}</td>
+				<td> {{ item[4] }}</td>
+				<td> {{ item[5] }}</td>
+				<td> {{ item[6] }}</td>
+				<td> {{ item[7] }}</td>
+				<td> {{ item[8].RR.length }} </td>
+
+			</tr>
+		</table>
+	</div>
+</div>

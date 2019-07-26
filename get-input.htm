@@ -1,0 +1,20 @@
+﻿<i class="far fa-file-excel fa-custom-color-white"></i>  <!--<input class="wybierz-file" id="wybierz-file" placeholder="Nazwa pliku SPI" ng-model="SPI.FileName"> -->
+<select class="wybierz-file" id="wybierz-file" ng-model="SPI.FileName">
+	<option ng-repeat="filename in SPI.filenames" value="{{filename}}">{{ filename }}</option>
+</select>
+
+
+<i class="fas fa-user fa-custom-color-white"></i>  <input class="wybierz-fupa" id="wybierz-fupa" placeholder="Wpisz swój FU-Code"> 
+<i class="fas fa-project-diagram fa-custom-color-white"></i>  <input class="wybierz-proj" id="wybierz-proj" placeholder="Project Pattern">
+<i class="fas fa-code fa-custom-color-white"></i>  <input class="wybierz-faze" id="wybierz-faze" placeholder="Phase Pattern">
+
+
+
+<!-- get input data ctrl -->
+<button class="btn btn-primary" id="btn-get-data-from-wizard" ng-click="przygotujDane()"><h3><i class="fas fa-cogs"></i> Przygotuj dane</h3></button>
+<button class="btn btn-primary" id="btn-get-now-all-rr" ng-click="getRoomRequests()"><h3><i class="fa fa-bars"></i> SmaRRty teraz!</h3></button>
+
+
+<div id="loader-dla-przygotuj-dane" class="spinner-grow black-loader" role="status">
+	<span class="sr-only">Loading...</span>
+</div>

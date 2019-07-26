@@ -19,6 +19,8 @@
 	    <link rel="stylesheet" href="map.css">
 	    <link rel="stylesheet" href="loading-input-data-loader.css">
 	    <link rel="stylesheet" href="tree-view.css">
+	    <link rel="stylesheet" href="joined-list.css">
+
 	    
 	    
 	    <script src="jquery.min.js"></script>
@@ -56,15 +58,57 @@
 		
 		<div class="rr" id="rr" ng-controller="RRCtrl">
 			
-            <a ng-click="rr.downloadAllCsv()" class="btn btn-lg btn-primary" href="#">
-                Pobierz dane do CSV
-            </a>
+			<button class="btn btn-danger" id="btn-get-now-all-rr" ng-click="rr.downloadAllCsv()">
+				<h3>
+					<i class="fa fa-bars"></i> 
+					Pobierz SmaRRty do CSV
+				</h3>
+			</button>
+
+
+			<button class="btn btn-secondary" id="btn-get-now-all-rr" ng-click="rr.showLoadedRoomRequests()">
+				<h3>
+					<i class="fas fa-eye"></i>
+					SmaRRty teraz!
+				</h3>
+			</button>
+			
+			<button class="btn btn-success" id="btn-get-now-all-rr" ng-click="rr.makeMatch()" ng-show="rr.buttonForMatchVisible">
+				<h3>
+					<i class="far fa-hand-point-right"></i>
+					<i class="far fa-hand-point-left"></i>
+					Raport SmaRRtów
+				</h3>
+			</button>
+			
+			<select class="wybierz-file" id="wybierz-file" ng-model="rr.SPI.FileName" ng-show="rr.buttonForMatchVisible">
+				<option ng-repeat="filename in rr.SPI.filenames" value="{{filename}}">{{ filename }}</option>
+			</select>
+
+
+
 
 		</div>
 
 
 
 		<!-- <div id="map"></div> -->
+		
+		<hr class="my-4">
+		
+		<!-- niezalezna lista smarrtow -->
+		<div id="bottom-smarrt-list" class="bottom-smarrt-list" ng-controller="BottomSmarrtListCtrl">
+			<div ng-include="'get-bottom-smarrt-list.htm'"></div>
+		</div>
+		
+		<br>
+		<hr class="my-4">
+		<!-- lista laczona pomiedzy SmaRRtami a zrzutem z collectora -->
+		<div id="joined-list" class="joined-list" ng-controller="JoinedListCtrl" ng-show="rr.buttonForMatchVisible">
+			<div ng-include="'joined-list.htm'"></div>
+		</div>
+
+
 
 
 
@@ -79,6 +123,8 @@
 	    <script src="angular-animate.js"></script>
 	    <script src="mgt-app.js"></script>
 	    <script src="ng-mgt-request-service.js"></script>
+	    <script src="main-list-ctrl-event-handler-lib.js"></script>
+
 	    
 	    
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi4qGILGZie-a4X6BbiyBitcy1aU3Kp2A&libraries=places&callback=initMap" async defer></script> -->

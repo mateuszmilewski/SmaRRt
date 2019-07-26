@@ -18,4 +18,11 @@
 		let modalDim = document.getElementById("cubeModal");
 		modalDim.style.top = (vertical_position + 100) + 'px';
 	}
+	
+	
+	if( !!(document.getElementById("clipboard-yellow-icon")) ) {
+		let modalDim = document.getElementById("clipboard-yellow-icon");
+		modalDim.style.top = (vertical_position + 300) + 'px';
+	}
+
 } 

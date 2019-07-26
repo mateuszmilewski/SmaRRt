@@ -1,21 +1,56 @@
-function loadRoomRequestsByPlantAndStatus(mPlant, mStatus) {
-
-
+function loadLightFriendsById(ajdi) {
 	let site = G_URL_SITE;
-    let RR = [];
-    
-    
-    // tu run: loadRoomRequestsByPathArray("ZA","FMA","WM","P2JO","PRS EL1-5.1","Y2019CW20","991631");
-    // example: //  /_api/web/lists/getbytitle('infolist')/items?$filter=( Modified le datetime'2016-03-26T09:59:32Z') and (ID eq 2)
-    let tmpFilter = "&$filter=(PLT eq '" + mPlant + "')";
-    tmpFilter = "" + tmpFilter + " and " + "(STATUS eq '" + mStatus + "')";
-    
+  let RR = [];
+  
+  
+  console.log("in loadLightFriendsById ", ajdi);
+  
+   // let tmpFilter = "&$filter=(RR_FIREND_ID eq '" + ajdi + "')";
+   //tmpFilter = "" + tmpFilter + " and " + "(FMA_REMARKS eq 'FRIEND')";
+   //let tmpFilter = "&$filter=(FMA_REMARKS eq 'FRIEND')";
+   // tmpFilter = "" + tmpFilter + " and (RR_FIREND_ID eq " + ajdi + ")";
+   
+   let tmpFilter = "&$filter=(RR_FIREND_ID eq " + ajdi + ")";
+   
     $.when(getAllListItemsWithFiltersSync(site, 'RoomRequests', tmpFilter )).done(function (data) {
-        data.d.results.forEach(function (item) {
+      data.d.results.forEach(function (item) {
+        
+         RR.push({
+             ID: item.ID,
+             RR_PARENT_ID: item.RR_PARENT_ID,
+             RR_FRIEND_ID: item.RR_FIREND_ID
+         });
+
+			});
+    });
+
+    return RR;
+
+}
+
+
+function loadRootFriendsById(ajdi) {
+	let site = G_URL_SITE;
+  let RR = [];
+  
+  
+  console.log("in loadRootFriendsById ", ajdi);
+  
+   // let tmpFilter = "&$filter=(RR_FIREND_ID eq '" + ajdi + "')";
+   //tmpFilter = "" + tmpFilter + " and " + "(FMA_REMARKS eq 'FRIEND')";
+   //let tmpFilter = "&$filter=(FMA_REMARKS eq 'FRIEND')";
+   // tmpFilter = "" + tmpFilter + " and (RR_FIREND_ID eq " + ajdi + ")";
+   
+   let tmpFilter = "&$filter=(ID eq " + ajdi + ")";
+   
+    $.when(getAllListItemsWithFiltersSync(site, 'RoomRequests', tmpFilter )).done(function (data) {
+      data.d.results.forEach(function (item) {
         
             RR.push({
                 RR_ID: item.Title,
                 ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
                 PLT: item.PLT,
                 RESP: item.RESP,
                 FUP: item.FUP,
@@ -62,7 +97,253 @@ function loadRoomRequestsByPlantAndStatus(mPlant, mStatus) {
                 	RDC_Date: item.CCC_RDC_Date,
                 	Route: item.CCC_Route,
                 	RouteAvailable: item.CCC_RouteAvailable,
-                	ServiceType: item.CCC_ServiceType
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
+                	
+                }
+            });
+
+			});
+    });
+
+    return RR;
+
+}
+
+
+
+function loadRoomRequestsByStatusWithoutFriends(mStatus) {
+
+
+	let site = G_URL_SITE;
+    let RR = [];
+    
+    
+    // tu run: loadRoomRequestsByPathArray("ZA","FMA","WM","P2JO","PRS EL1-5.1","Y2019CW20","991631");
+    // example: //  /_api/web/lists/getbytitle('infolist')/items?$filter=( Modified le datetime'2016-03-26T09:59:32Z') and (ID eq 2)
+    let tmpFilter = "&$filter=(STATUS eq '" + mStatus + "')";
+    tmpFilter = "" + tmpFilter + " and " + "(FMA_REMARKS ne 'FRIEND')";
+    
+    $.when(getAllListItemsWithFiltersSync(site, 'RoomRequests', tmpFilter )).done(function (data) {
+        data.d.results.forEach(function (item) {
+        
+            RR.push({
+                RR_ID: item.Title,
+                ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
+                PLT: item.PLT,
+                RESP: item.RESP,
+                FUP: item.FUP,
+                Project: item.Project,
+                FAZA: item.FAZA,
+                MRD: item.MRD,
+                STATUS: item.STATUS,
+                AID: item.AuthorId,
+                Created: item.Created,
+                Modified: item.Modified,
+                
+                MAP: {
+                	LAT: item.MAP_LAT,
+                	LNG: item.MAP_LNG,
+                	PLACEID: item.MAP_PLACEID,
+                },
+                
+                FMA: {
+                	SupplierName: item.Supplier_x0020_Name,
+                	DUNS: item.DUNS,
+                	COFOR: item.COFOR,
+                	Address: item.Address,
+                	City: item.City,
+                	ZIP: item.ZIP,
+                	CC: item.CC,
+                	PossiblePickUp: item.Possible_x0020_Pickup_x0020__x00,
+                	Packaging: item.Packaging,
+                	Dim: item.Dimensions,
+                	NumberOfContainers: item.NumberOfContainers,
+                	Weight: item.Weight,
+                	Stackable: item.Stackable_x003f__x0020__x0028_Y_,
+                	SuggestedRoute: item.SuggestedRoute,
+                	DeadlineInPlant: item.DeadlineInPlant,
+                	HazardousGoods: item.HazardousGoods,
+                	FMA_Remarks: item.FMA_REMARKS
+                },
+                CCC: {
+                	CarrierCode: item.CCC_CarrierCode,
+                	CustomsMaterial: item.CCC_CustomsMaterial,
+                	DELIVERY_DATE: item.CCC_DELIVERY_DATE,
+                	EstimatedCostForPTA: item.CCC_EstimatedCostForPTA,
+                	PickupDate: item.CCC_PickupDate,
+                	RDC_Code: item.CCC_RDC_Code,
+                	RDC_Date: item.CCC_RDC_Date,
+                	Route: item.CCC_Route,
+                	RouteAvailable: item.CCC_RouteAvailable,
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
+                	
+                }
+            });
+
+			});
+    });
+
+    return RR;
+
+
+}
+
+
+function loadRoomRequestsByPlantAndStatusWithoutFriends(mPlant, mStatus) {
+
+
+	let site = G_URL_SITE;
+    let RR = [];
+    
+    
+    // tu run: loadRoomRequestsByPathArray("ZA","FMA","WM","P2JO","PRS EL1-5.1","Y2019CW20","991631");
+    // example: //  /_api/web/lists/getbytitle('infolist')/items?$filter=( Modified le datetime'2016-03-26T09:59:32Z') and (ID eq 2)
+    let tmpFilter = "&$filter=(PLT eq '" + mPlant + "')";
+    tmpFilter = "" + tmpFilter + " and " + "(STATUS eq '" + mStatus + "')";
+    tmpFilter = "" + tmpFilter + " and " + "(FMA_REMARKS ne 'FRIEND')";
+    
+    $.when(getAllListItemsWithFiltersSync(site, 'RoomRequests', tmpFilter )).done(function (data) {
+        data.d.results.forEach(function (item) {
+        
+            RR.push({
+                RR_ID: item.Title,
+                ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
+                PLT: item.PLT,
+                RESP: item.RESP,
+                FUP: item.FUP,
+                Project: item.Project,
+                FAZA: item.FAZA,
+                MRD: item.MRD,
+                STATUS: item.STATUS,
+                AID: item.AuthorId,
+                Created: item.Created,
+                Modified: item.Modified,
+                
+                MAP: {
+                	LAT: item.MAP_LAT,
+                	LNG: item.MAP_LNG,
+                	PLACEID: item.MAP_PLACEID,
+                },
+                
+                FMA: {
+                	SupplierName: item.Supplier_x0020_Name,
+                	DUNS: item.DUNS,
+                	COFOR: item.COFOR,
+                	Address: item.Address,
+                	City: item.City,
+                	ZIP: item.ZIP,
+                	CC: item.CC,
+                	PossiblePickUp: item.Possible_x0020_Pickup_x0020__x00,
+                	Packaging: item.Packaging,
+                	Dim: item.Dimensions,
+                	NumberOfContainers: item.NumberOfContainers,
+                	Weight: item.Weight,
+                	Stackable: item.Stackable_x003f__x0020__x0028_Y_,
+                	SuggestedRoute: item.SuggestedRoute,
+                	DeadlineInPlant: item.DeadlineInPlant,
+                	HazardousGoods: item.HazardousGoods,
+                	FMA_Remarks: item.FMA_REMARKS
+                },
+                CCC: {
+                	CarrierCode: item.CCC_CarrierCode,
+                	CustomsMaterial: item.CCC_CustomsMaterial,
+                	DELIVERY_DATE: item.CCC_DELIVERY_DATE,
+                	EstimatedCostForPTA: item.CCC_EstimatedCostForPTA,
+                	PickupDate: item.CCC_PickupDate,
+                	RDC_Code: item.CCC_RDC_Code,
+                	RDC_Date: item.CCC_RDC_Date,
+                	Route: item.CCC_Route,
+                	RouteAvailable: item.CCC_RouteAvailable,
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
+                	
+                }
+            });
+
+		});
+    });
+
+    return RR;
+
+
+}
+
+
+
+function loadRoomRequestsByPlantAndStatus(mPlant, mStatus) {
+
+
+	let site = G_URL_SITE;
+    let RR = [];
+    
+    
+    // tu run: loadRoomRequestsByPathArray("ZA","FMA","WM","P2JO","PRS EL1-5.1","Y2019CW20","991631");
+    // example: //  /_api/web/lists/getbytitle('infolist')/items?$filter=( Modified le datetime'2016-03-26T09:59:32Z') and (ID eq 2)
+    let tmpFilter = "&$filter=(PLT eq '" + mPlant + "')";
+    tmpFilter = "" + tmpFilter + " and " + "(STATUS eq '" + mStatus + "')";
+    
+    $.when(getAllListItemsWithFiltersSync(site, 'RoomRequests', tmpFilter )).done(function (data) {
+        data.d.results.forEach(function (item) {
+        
+            RR.push({
+                RR_ID: item.Title,
+                ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
+                PLT: item.PLT,
+                RESP: item.RESP,
+                FUP: item.FUP,
+                Project: item.Project,
+                FAZA: item.FAZA,
+                MRD: item.MRD,
+                STATUS: item.STATUS,
+                AID: item.AuthorId,
+                Created: item.Created,
+                Modified: item.Modified,
+                
+                MAP: {
+                	LAT: item.MAP_LAT,
+                	LNG: item.MAP_LNG,
+                	PLACEID: item.MAP_PLACEID,
+                },
+                
+                FMA: {
+                	SupplierName: item.Supplier_x0020_Name,
+                	DUNS: item.DUNS,
+                	COFOR: item.COFOR,
+                	Address: item.Address,
+                	City: item.City,
+                	ZIP: item.ZIP,
+                	CC: item.CC,
+                	PossiblePickUp: item.Possible_x0020_Pickup_x0020__x00,
+                	Packaging: item.Packaging,
+                	Dim: item.Dimensions,
+                	NumberOfContainers: item.NumberOfContainers,
+                	Weight: item.Weight,
+                	Stackable: item.Stackable_x003f__x0020__x0028_Y_,
+                	SuggestedRoute: item.SuggestedRoute,
+                	DeadlineInPlant: item.DeadlineInPlant,
+                	HazardousGoods: item.HazardousGoods,
+                	FMA_Remarks: item.FMA_REMARKS
+                },
+                CCC: {
+                	CarrierCode: item.CCC_CarrierCode,
+                	CustomsMaterial: item.CCC_CustomsMaterial,
+                	DELIVERY_DATE: item.CCC_DELIVERY_DATE,
+                	EstimatedCostForPTA: item.CCC_EstimatedCostForPTA,
+                	PickupDate: item.CCC_PickupDate,
+                	RDC_Code: item.CCC_RDC_Code,
+                	RDC_Date: item.CCC_RDC_Date,
+                	Route: item.CCC_Route,
+                	RouteAvailable: item.CCC_RouteAvailable,
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
                 	
                 }
             });
@@ -100,6 +381,8 @@ function loadRoomRequestsByPathArray(plt, resp, fup, proj, faza, mrd, duns) {
             RR.push({
                 RR_ID: item.Title,
                 ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
                 PLT: item.PLT,
                 RESP: item.RESP,
                 FUP: item.FUP,
@@ -146,7 +429,8 @@ function loadRoomRequestsByPathArray(plt, resp, fup, proj, faza, mrd, duns) {
                 	RDC_Date: item.CCC_RDC_Date,
                 	Route: item.CCC_Route,
                 	RouteAvailable: item.CCC_RouteAvailable,
-                	ServiceType: item.CCC_ServiceType
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
                 	
                 }
             });
@@ -172,6 +456,8 @@ function loadRoomRequests() {
             RR.push({
                 RR_ID: item.RR_ID,
                 ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
                 PLT: item.PLT,
                 RESP: item.RESP,
                 FUP: item.FUP,
@@ -217,7 +503,8 @@ function loadRoomRequests() {
                 	RDC_Date: item.CCC_RDC_Date,
                 	Route: item.CCC_Route,
                 	RouteAvailable: item.CCC_RouteAvailable,
-                	ServiceType: item.CCC_ServiceType
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
                 	
                 }
             });
@@ -245,6 +532,8 @@ function loadRoomRequestsByPlt(plt) {
             RR.push({
                 RR_ID: item.RR_ID,
                 ID: item.ID,
+                RR_PARENT_ID: item.RR_PARENT_ID,
+                RR_FRIEND_ID: item.RR_FIREND_ID,
                 PLT: item.PLT,
                 RESP: item.RESP,
                 FUP: item.FUP,
@@ -290,7 +579,8 @@ function loadRoomRequestsByPlt(plt) {
                 	RDC_Date: item.CCC_RDC_Date,
                 	Route: item.CCC_Route,
                 	RouteAvailable: item.CCC_RouteAvailable,
-                	ServiceType: item.CCC_ServiceType
+                	ServiceType: item.ServiceType,
+                	CCC_XtraComment: item.CCC_XtraComment,
                 	
                 }
             });
@@ -324,7 +614,10 @@ function loadSuppliers() {
             	placeid: item.OData__x0069_d16,
             	ID: item.ID,
             	lat: item.a4tc,
-            	lng: item.e0z9
+            	lng: item.e0z9,
+            	Contact: item.jtdl,
+            	Phone: item.tayf,
+            	Mail: item.mbhe
             });
             
         });
@@ -363,7 +656,10 @@ function loadSuppliersByDuns(duns) {
             	placeid: item.OData__x0069_d16,
             	ID: item.ID,
             	lat: item.a4tc,
-            	lng: item.e0z9
+            	lng: item.e0z9,
+            	Contact: item.jtdl,
+            	Phone: item.tayf,
+            	Mail: item.mbhe
             });
             
         });
@@ -404,7 +700,10 @@ function loadSuppliersByPlt(plt) {
             	placeid: item.OData__x0069_d16,
             	ID: item.ID,
             	lat: item.a4tc,
-            	lng: item.e0z9
+            	lng: item.e0z9,
+            	Contact: item.jtdl,
+            	Phone: item.tayf,
+            	Mail: item.mbhe
             });
             
         });
@@ -419,11 +718,11 @@ function loadSuppliersByPlt(plt) {
 
 
 
-function updateSupplier(itemFromMap) {
+function updateSupplier(item) {
 
 
 
-	console.log( "item from map ", itemFromMap);
+	console.log( "item from map ", item);
 	
 	
     $().SPServices({
@@ -432,12 +731,15 @@ function updateSupplier(itemFromMap) {
         batchCmd: "Update",
         listName: "RoomRequestSuppliers",
         valuepairs: [
-        	["_x0068_ab5", itemFromMap.Supplier],
-        	["_x0069_d16", itemFromMap.placeid],
-        	["a4tc", itemFromMap.lat],
-        	["e0z9", itemFromMap.lng]
+        	["_x0068_ab5", item.Supplier],
+        	["_x0069_d16", item.placeid],
+        	["a4tc", item.lat],
+        	["e0z9", item.lng],
+      		["jtdl", item.Contact],
+      		["tayf", item.Phone],
+      		["mbhe", item.Mail],
         ],
-        ID: itemFromMap.ID,
+        ID: item.ID,
         completefunc: function (xData, Status) {
             console.log("Status: " + " " + Status);
             console.log("xData: ", xData);
@@ -448,6 +750,21 @@ function updateSupplier(itemFromMap) {
 }
 
 
+function loadSPI() {
+	
+	let toReturn = [];
+	$.when( getAllFilenames(G_URL_SITE, "Documents") ).done( function(data) {
+	  	
+  	data.d.results.forEach( (item) => {
+  		toReturn.push( item.FileLeafRef );
+  	});
+  	
+  
+	
+	});
+	
+	return toReturn;
+}
 
 
 
@@ -493,7 +810,48 @@ function loadUser() {
 
 
 
+function addFriend(fullObject, friend_ID) {
+	console.log(" dbRest.js -> inside addFriend ", fullObject, friend_ID );
+	
+	
+	
+	  let valuepairs = [
+	  ["Title", fullObject.ID],
+		["RR_FIREND_ID", friend_ID],
+		["STATUS", fullObject.STATUS],
+		["PLT", fullObject.PLT],
+		["RESP", fullObject.RESP],
+		["FUP", fullObject.FUP],
+		["Project", fullObject.Project],
+		["FAZA", fullObject.FAZA],
+		["MRD", fullObject.MRD],
+		["Supplier_x0020_Name", fullObject.SupplierName],
+		["DUNS", fullObject.DUNS],
+		["FMA_REMARKS", "FRIEND"],
+	];
+	
 
+    $().SPServices({
+        operation: "UpdateListItems",
+        async: false,
+        batchCmd: "New",
+        listName: "RoomRequests",
+        valuepairs: valuepairs,
+        completefunc: function (xData, Status) {
+        
+        
+            console.log("SmaRRt added!", xData, Status);    
+            // let tmpstr = xData.responseText;
+            // console.log("xData.responseText: ", xData.responseText);
+            
+            alert("added SmaRRt completefunc: " + Status);
+            
+            
+            
+        }
+    });
+
+}
 
 
 
@@ -506,7 +864,6 @@ function addSmaRRt(fullObject) {
 
     let valuepairs = [
 		["Title", fullObject.ID],
-		["RR_FIREND_ID", fullObject.ID],
 		["STATUS", fullObject.STATUS],
 		["PLT", fullObject.plt],
 		["RESP", fullObject.resp],
@@ -558,6 +915,152 @@ function addSmaRRt(fullObject) {
 
 
 }
+
+
+function changeSmaRRtStatusTo(rrstatus, ajdi) {
+	console.log(" dbRest.js -> inside changeSmaRRtStatusTo(status): ", status);
+	
+	
+	let valuepairs = [
+		["STATUS", rrstatus],
+	];
+	
+  $().SPServices({
+      operation: "UpdateListItems",
+      async: false,
+      batchCmd: "Update",
+      listName: "RoomRequests",
+      valuepairs: valuepairs,
+      ID: ajdi,
+      completefunc: function (xData, Status) {
+      
+      
+          console.log("feedback on friend ready!", xData, Status);    
+          // let tmpstr = xData.responseText;
+          // console.log("xData.responseText: ", xData.responseText);
+          
+          alert("feedback on friend ready, status: " + Status);
+      }
+  });
+
+}
+
+
+function updateSmarrtFriendIdForParent(friendID) {
+	console.log(" dbRest.js -> inside updateSmarrtFriendIdForParent", friendID);
+	
+	let valuepairs = [
+		["RR_FIREND_ID", friendID],
+	];
+	
+	
+  $().SPServices({
+      operation: "UpdateListItems",
+      async: false,
+      batchCmd: "Update",
+      listName: "RoomRequests",
+      valuepairs: valuepairs,
+      ID: friendID,
+      completefunc: function (xData, Status) {
+      
+      
+          console.log("feedback on friend id for parent ready!", xData, Status);    
+          // let tmpstr = xData.responseText;
+          // console.log("xData.responseText: ", xData.responseText);
+          
+          alert("feedback on friend id for parent ready, status: " + Status);
+      }
+  });
+
+
+}
+
+
+function cccFeedbackFriend(ajdi, parentID) {
+
+
+	console.log(" dbRest.js -> inside cccFeedbackFriend ", ajdi);
+	
+	let valuepairs = [
+		["STATUS", 2],
+		["RR_PARENT_ID", parentID],
+	];
+	
+  $().SPServices({
+      operation: "UpdateListItems",
+      async: false,
+      batchCmd: "Update",
+      listName: "RoomRequests",
+      valuepairs: valuepairs,
+      ID: ajdi,
+      completefunc: function (xData, Status) {
+      
+      
+          console.log("feedback on friend ready!", xData, Status);    
+          // let tmpstr = xData.responseText;
+          // console.log("xData.responseText: ", xData.responseText);
+          
+          // alert("feedback on friend ready, status: " + Status);
+      }
+  });
+
+}
+
+
+
+
+function cccFeedbackSmaRRt(fullObject, ajdi, parentID) {
+
+
+	// cccFeedbackSmaRRt jest mocno uzalezniona funkcja obiekt ktory 
+	// przedkladamy tutaj nie posiada ID, poniewaz moze sie okazac
+	// ze chcemy zrobic aktualizacje wielu smarrtow na raz
+	// zatem zeby w petli sie latwiej pracowalo na identycznych fullObjectach
+	// dalem osobno id: ajdi - co by tylko te property podmieniac 
+	// w samym submitcie
+
+
+	console.log(" dbRest.js -> inside cccFeedbackSmaRRt ", fullObject);
+
+    let valuepairs = [
+ 			["CCC_RouteAvailable", fullObject.routeAvailable],
+ 			["STATUS", 2],
+			["RR_PARENT_ID", parentID],
+ 			["CCC_Route", fullObject.route],
+ 			["CCC_CarrierCode", fullObject.carrierCodeOrName],
+ 			["CCC_PickupDate", fullObject.pickupDate],
+ 			["CCC_DELIVERY_DATE", fullObject.deliveryDate],
+ 			["CCC_RDC_Date", fullObject.rdcDate],
+ 			["CCC_RDC_Code", fullObject.rdcCode],
+ 			["CCC_CustomsMaterial", fullObject.customsMaterial],
+ 			["ServiceType", fullObject.typeOfService],
+ 			["CCC_EstimatedCostForPTA", fullObject.ptaCost],
+ 			["CCC_PTA", fullObject.PTA],
+ 			["CCC_XtraComment", fullObject.xtraComments],
+		];
+	
+
+    $().SPServices({
+        operation: "UpdateListItems",
+        async: false,
+        batchCmd: "Update",
+        listName: "RoomRequests",
+        valuepairs: valuepairs,
+        ID: ajdi,
+        completefunc: function (xData, Status) {
+        
+        
+            console.log("feedback on SmaRRt ready!", xData, Status);    
+            // let tmpstr = xData.responseText;
+            // console.log("xData.responseText: ", xData.responseText);
+            
+            alert("feedback on SmaRRt ready, status: " + Status);
+        }
+    });
+
+
+}
+
 
 
 function addSupplier(fullObject) {

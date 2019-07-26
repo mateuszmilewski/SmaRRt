@@ -1,0 +1,42 @@
+﻿#clipboard-yellow-icon {
+	position: absolute;
+	z-index: 10;
+	overflow: hidden;
+	top: 300px;
+	left: 0px;
+	padding: 6px;
+	height: 60px;
+	width: 60px;
+	cursor: not-allowed;	
+}
+
+
+.animation-for-clipboard-yellow-icon {
+
+	animation-name: refreshClipboardYellowIcon;
+  animation-duration: 2s; 
+}
+
+
+#clipboard-yellow-icon * {
+	cursor: not-allowed;
+}
+
+
+@keyframes refreshClipboardYellowIcon {
+ 0% {
+ 	transform: scale(0.5);
+ 	opacity: 0.3;
+ }
+ 
+ 60% {
+ 	transform: scale(1.1);
+ 	opacity: 0.6;
+ }
+
+ 
+ 100% {
+ 	transform: scale(1.0);
+ 	opacity: 1.0;
+ }
+}

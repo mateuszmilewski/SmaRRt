@@ -18,16 +18,10 @@
 	    	}
     	}
     );
-
-
-
-
-	// hide all
-	$scope.schow = () => {
-	
-		console.log("schow wogule ");
-		// map-text-details
-		document.getElementById("outer-map").style.height = "0px";
+    
+    
+    
+  	document.getElementById("outer-map").style.height = "0px";
 		document.getElementById("outer-map").style.width = "0px";
 		document.getElementById("outer-map").style.overflow = "hidden";
 		
@@ -36,42 +30,58 @@
 		document.getElementById("nie-schow").style.overflow = "auto";
 
 
-	}
-	
-	$scope.nieSchow = () => {
-	
-		console.log("nie-schow wogule ");
-		// map-text-details
-		document.getElementById("outer-map").style.height = "800px";
-		document.getElementById("outer-map").style.width = "500px";
-		document.getElementById("outer-map").style.overflow = "visible";
-		
-		document.getElementById("nie-schow").style.height = "0px";
-		document.getElementById("nie-schow").style.width = "0px";
-		document.getElementById("nie-schow").style.overflow = "hidden";
+
+  
+  	// hide all
+  	$scope.schow = () => {
+  	
+  		console.log("schow wogule ");
+  		// map-text-details
+  		document.getElementById("outer-map").style.height = "0px";
+  		document.getElementById("outer-map").style.width = "0px";
+  		document.getElementById("outer-map").style.overflow = "hidden";
+  		
+  		document.getElementById("nie-schow").style.height = "50px";
+  		document.getElementById("nie-schow").style.width = "100px";
+  		document.getElementById("nie-schow").style.overflow = "auto";
+  
+  
+  	}
+  	
+  	$scope.nieSchow = () => {
+  	
+  		console.log("nie-schow wogule ");
+  		// map-text-details
+  		document.getElementById("outer-map").style.height = "800px";
+  		document.getElementById("outer-map").style.width = "500px";
+  		document.getElementById("outer-map").style.overflow = "visible";
+  		
+  		document.getElementById("nie-schow").style.height = "0px";
+  		document.getElementById("nie-schow").style.width = "0px";
+  		document.getElementById("nie-schow").style.overflow = "hidden";
+  
+  
+  	}
 
 
-	}
 
-
-
-
-	$scope.minMapDetails = () => {
-		console.log("minMapDetails ");
-		// map-text-details
-		document.getElementById("map-text-details").style.height = "0px";
-		document.getElementById("map-text-details").style.width = "0px";
-		document.getElementById("map-text-details").style.overflow = "hidden";
-
-	}
-	$scope.maxMapDetails = () => {
-		console.log("maxMapDetails ");
-		document.getElementById("map-text-details").style.height = "400px";
-		document.getElementById("map-text-details").style.width = "400px";
-		document.getElementById("map-text-details").style.overflow = "auto";
-		document.getElementById("map-text-details").style.left = "0px";
-
-	}
+  
+  	$scope.minMapDetails = () => {
+  		console.log("minMapDetails ");
+  		// map-text-details
+  		document.getElementById("map-text-details").style.height = "0px";
+  		document.getElementById("map-text-details").style.width = "0px";
+  		document.getElementById("map-text-details").style.overflow = "hidden";
+  
+  	}
+  	$scope.maxMapDetails = () => {
+  		console.log("maxMapDetails ");
+  		document.getElementById("map-text-details").style.height = "400px";
+  		document.getElementById("map-text-details").style.width = "400px";
+  		document.getElementById("map-text-details").style.overflow = "auto";
+  		document.getElementById("map-text-details").style.left = "0px";
+  
+  	}
 
 
 	

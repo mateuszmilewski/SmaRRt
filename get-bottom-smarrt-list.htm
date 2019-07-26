@@ -1,0 +1,67 @@
+﻿<div ng-show="bottomSmarrtList.visible">
+	<h3> {{ bottomSmarrtList.title }}</h3>
+	
+	
+	<div class="filter-for-list-section">
+		<span>FILTER: </span><input ng-model="bottomSmarrtList.filterInput" ng-change="bottomSmarrtList.onChange()">
+	</div>
+
+	
+	<table class="table-for-bottom-list">
+		<tr>
+			<th><i class="fas fa-eye"></i></th>
+			<th>ID</th>
+			<th>PARENT ID</th>
+			<th>FRIEND ID</th>
+			<th>PLT</th>
+			<th>RESP</th>
+			<th>FUP</th>
+			<th>Project</th>
+			<th>FAZA</th>
+			<th>MRD</th>
+			<th>DUNS</th>
+			<th>Supplier Name</th>
+			<th>STATUS</th>
+			<th>Route Available</th>
+			<th>Carrier Code</th>
+			<th>Customs Material</th>
+			<th>Pickup Date</th>
+			<th>DELIVERY DATE</th>
+			<th>RDC Code</th>
+			<th>RDC Date</th>
+			<th>PTA Cost</th>
+			<th>Service Type</th>
+		</tr>
+		<tr 
+			ng-repeat="listItem in bottomSmarrtList.filteredList" 
+			ng-class="{'badge-secondary': ( ($index % 2) == 0 ), 'badge-primary': ( ($index % 2) == 1 )}" 
+			id="rr-{{listItem.ID}}"
+			ng-click="fillInputFields(listItem)">
+			
+			<td ng-click="bottomSmarrtList.showLeafInTreeIfPossible(listItem)"> <i class="far fa-eye fa-2x"></i> </td>
+			<td>{{ listItem.ID }}</td>
+			<td>{{ listItem.RR_PARENT_ID }}</td>
+			<td>{{ listItem.RR_FRIEND_ID }}</td>
+			<td>{{ listItem.PLT }}</td>
+			<td>{{ listItem.RESP }}</td>
+			<td>{{ listItem.FUP }}</td>
+			<td>{{ listItem.Project }}</td>
+			<td>{{ listItem.FAZA }}</td>
+			<td>{{ listItem.MRD }}</td>
+			<td>{{ listItem.FMA.DUNS }}</td>
+			<td>{{ listItem.FMA.SupplierName }}</td>
+			<td>{{ listItem.STATUS }}</td>
+			<td>{{ listItem.CCC.RouteAvailable }}</td>
+			<td>{{ listItem.CCC.CarrierCode }}</td>
+			<td>{{ listItem.CCC.CustomsMaterial }}</td>
+			<td>{{ listItem.CCC.PickupDate }}</td>
+			<td>{{ listItem.CCC.DELIVERY_DATE }}</td>
+			<td>{{ listItem.CCC.RDC_Code }}</td>
+			<td>{{ listItem.CCC.RDC_Date }}</td>
+			<td>{{ listItem.CCC.EstimatedCostForPTA }}</td>
+			<td>{{ listItem.CCC.ServiceType }}</td>
+			
+		</tr>
+
+	</table>
+</div>

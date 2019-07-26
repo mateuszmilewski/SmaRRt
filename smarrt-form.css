@@ -3,6 +3,13 @@
 }
 
 
+.smarrt-form-container .header-btns-in-smarrt-frm {
+ 
+ color: black !important;
+ font-size: 1.5em !important;
+}
+
+
 .title-on-smarrt-form {
 	font-size: 16px;
 }
@@ -89,4 +96,79 @@
 
 .pre-smarrt-popup-friends .friend-popup-cross {
 	float: right;
+	font-size: 200%;
+	font-weight: bold;
+}
+
+
+.pre-smarrt-popup-pus {
+  overflow-wrap: break-word;
+  position:absolute;
+  z-index: 120;
+  top: 30px;
+  left: 30px;
+  min-width: 800px;
+  width: 800px;
+  height: auto;
+  padding: 10px;
+  margin: 4px;
+  border-radius: 8px;
+  border: 2px solid #383d41;
+  font-size: 20px;
+  color: #141414;
+  background-color: white;
+  box-shadow: 13px 25px 50px 6px rgba(0,0,0,0.44);
+  font-size: 11px;
+}
+
+.pre-smarrt-popup-pus .matrix-for-pus-data-in-jenny {
+ 	z-index: 123;
+ 	cursor: text;
+ 	user-select: all;
+}
+
+.pre-smarrt-popup-pus .table-selected tr td {
+ 	color: red;
+ 	font-weight: bold;
+ 	background-color: #ffc107;
+}
+
+
+
+.pre-smarrt-popup-pus .input-group-text {
+	width: 170px;
+	min-width: 170px;
+}
+
+
+.pre-smarrt-popup-pus .matrix-for-pus-data-in-jenny {
+ left: 2px;
+ margin: 10px !important;
+ font-size: 1em;
+}
+
+.pre-smarrt-popup-pus .matrix-for-pus-data-in-jenny tr th, .pre-smarrt-popup-pus .matrix-for-pus-data-in-jenny tr td {
+ 	font-size: 1em !important;
+}
+
+
+.pre-smarrt-popup-pus .pus-form-head {
+ font-size: 1.5rem;
+}
+
+.pre-smarrt-popup-pus td { font-size: 12px; }
+
+
+.pre-smarrt-popup-pus .pus-popup-cross {
+	float: right;
+	font-size: 200%;
+	font-weight: bold;
+}
+
+
+.pre-smarrt-popup-pus .pus-inner-tabel-after-submission td,
+.pre-smarrt-popup-pus .pus-inner-tabel-after-submission th {
+ font-size: 140%;
+ color: black !important;
+ border: 2px solid black !important;
 }

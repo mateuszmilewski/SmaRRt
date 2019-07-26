@@ -21,6 +21,8 @@
 	    <link rel="stylesheet" href="tree-view.css">
 	    <link rel="stylesheet" href="smarrt-form.css">
 	    <link rel="stylesheet" href="cube.css">
+	    <link rel="stylesheet" href="bottom-list.css">
+	    <link rel="stylesheet" href="clipboard-handler.css">
 	    
 	    
 	    <script id="vannila-script-hook" src="vannila.js"></script>
@@ -34,7 +36,7 @@
 	    <script src="tree-maker-lib.js"></script>
 
 	    <script src="easysharepoint.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.min.js"></script>
 	    <script src="dbRest.js"></script>
 	    
 	    <script src="init-map.js"></script>
@@ -57,28 +59,11 @@
 	    <!--- end of LOADERS --->
 	    
 		<div class="header" id="header" ng-controller="HeaderCtrl">
-			<nav class="navbar navbar-light bg-warning">
-			  <b>{{ appTitle }}</b>
-			</nav>
-			<div class="alert alert-secondary"> 
-				<h2 class="alert-heading">{{ hello }}</h2>				
-			</div>
+			<div ng-include="'header.htm'"></div>
 		</div>
 		
 		<div class="get-input-data" id="get-input-data" ng-controller="GetInputDataCtrl">
-		
-			<i class="fas fa-user"></i>  <input class="wybierz-fupa" id="wybierz-fupa" placeholder="Wpisz swój FU-Code"> 
-			<i class="fas fa-project-diagram"></i>  <input class="wybierz-proj" id="wybierz-proj" placeholder="Project Pattern">
-			<i class="fas fa-code"></i>  <input class="wybierz-faze" id="wybierz-faze" placeholder="Phase Pattern">
-			<i class="fas fa-caret-square-right fa-3x"></i>
-		
-		
-			<button class="btn btn-dark" id="btn-get-data-from-wizard" ng-click="przygotujDane()"><h3><i class="fas fa-cogs"></i> Przygotuj dane</h3></button>
-			<div id="loader-dla-przygotuj-dane" class="spinner-grow black-loader" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-
-
+			<div ng-include="'get-input.htm'"></div>
 		</div>
 		
 		
@@ -149,363 +134,36 @@
 																		</span>
 																		<div class="nested tabele-wizard-i-sharepoint">
 																		
-																			<div class="badge badge-info badge-pill">Tabela danych z Wizarda: </div>
-																			<table class="tabela-danych-pod-smarrt tabela-numerow-czesci">
-																				<thead>
-																					<tr>
-																						<th>#</th>
-																						<th>PN</th>
-																						<th>PName</th>
-																						<th>DUNS</th>
-																						<th>Dostawca</th>
-																						<th>Total Qty</th>
-																						<th>MRD1 Ordered QTY</th>
-																						<th>MRD1 confirmed qty.</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					<tr ng-repeat="dataFromArray in makeFromDuns(plt, resp, fup, proj, faza, mrd, duns)">
-																						<td>#</td>
-																						<td>{{dataFromArray.data[0]}}</td>
-																						<td class="part-name-td">{{dataFromArray.data[1]}}</td>
-																						<td>{{dataFromArray.data[2]}}</td>
-																						<td class="supplier-td" ng-click="passSuppliernameIntoMap(dataFromArray.data[3])">{{dataFromArray.data[3]}}</td>
-																						<td>{{dataFromArray.data[4]}}</td>
-																						<td>{{dataFromArray.data[5]}}</td>
-																						<td>{{dataFromArray.data[6]}}</td>
-																					</tr>
-																				</tbody>
-																			</table>
-																		
-																		
-																			<!-- LISTA DOSTAWCOW z SP -->
-																			<!-- <div>{{ getDownloadedSharepointDataSupplier(plt, resp, fup, proj, faza, mrd, duns) }}</div> -->
-																			<div class="badge badge-danger badge-pill">Tabela danych z Sharepoint:</div>
-																			<table class="tabela-danych-pod-smarrt tabela-dostawcow-z-sp">
-																				<thead>
-																					<tr>
-																						<th>DUNS</th>
-																						<th>Nazwa</th>
-																						<th>Address</th>
-																						<th>SRC</th>
-																					</tr>
-																				</thead>
-																				<tbody>
-																					<tr ng-repeat="supplierForSupplierTable in getDownloadedSharepointDataSupplier(plt, resp, fup, proj, faza, mrd, duns)">
-																						<td>
-																							{{ supplierForSupplierTable.DUNS }}
-																						</td>
-																						<td ng-click="passSuppliernameIntoMap(supplierForSupplierTable.Supplier)">
-																							{{ supplierForSupplierTable.Supplier  }}
-																						</td>
-																						<td ng-click="passSuppliernameIntoMap(supplierForSupplierTable.Address)">
-																							{{ supplierForSupplierTable.Address  }}
-																						</td>
-																						<td>
-																							{{ supplierForSupplierTable.source  }}
-																						</td>
-
-																					</tr>
-																				</tbody>
-																			</table>
+																			<div ng-include="'leaf-tables.htm'"></div>
 
 																			
 																			
 																			<!-- INNE SMARTY! -->
 																			<div class="list-of-smarrts-before-smarrt-form" ng-controller="PreSmarrtCtrl">
-																			
-																			
-																				<!-- span with a get a friend -->
-																				<span ng-click="preSmarrt.arrowClicked(plt)">
-																					<i class="fas fa-arrow-right fa-3x zrob-te-strzalki-zielone "></i>
-																				</span>
-																				<!-- end of friend span -->
-
-																			
-																				
-																				<span
-																					class="span-for-get-smarrts" 
-																					ng-repeat="irr in preSmarrt.getSmarrts(plt, resp, fup, proj, faza, mrd, duns)">
-																					 
-																					<i 
-																						ng-class="{'fas fa-registered fa-3x': (irr.STATUS == 1), 'far fa-registered fa-3x': (irr.STATUS == 0)}"
-																						ng-mouseover="preSmarrt.showPopup(irr, $index)"
-																						ng-mouseleave="preSmarrt.hidePopup($index)">
-																					</i>
-																					
-																					<b class="b-irr-status">{{ irr.STATUS }} </b>
-																					
-																					
-																					<div class="pre-smarrt-popup-comment" ng-show="(preSmarrt.popupIsVisible) && ($index == preSmarrt.whichIndexVisible)">
-																						{{ preSmarrt.generateContentForPopup(irr, $index) }}
-																					</div>
-																					
-
-																				</span>
-																				
-																				<div class="pre-smarrt-popup-friends" ng-show="(preSmarrt.friendsPopupIsVisible)">
-																					<div class="friend-popup-cross" ng-click="preSmarrt.justCloseThisFormWithoutAnyAction()">X</div>
-																					<div>
-																						<span>List of SmaRRts for {{ plt }}, with status: 1</span>
-																					</div>
-																					<table>
-																						<tr 
-																							ng-repeat="srrt in preSmarrt.arrayOfDedicatedSmarrts" 
-																							ng-class="{'badge-success': ($index == preSmarrt.activeFriend ), 'badge-primary': ($index != preSmarrt.activeFriend )}" 
-																							ng-click="preSmarrt.onClickForFriend($index, srrt)">
-																							<!-- {{ preSmarrt.makeStringFromSmarrtObj( srrt ) }} -->
-
-																								<td><b>{{ srrt.ID }}</b></td>
-																								<td>{{ srrt.FMA.DUNS }}</td>
-																								<td>{{ srrt.FMA.SupplierName }}</td>
-
-																						</tr>
-																					</table>
-																					
-																					<button class="btn btn-danger" ng-click="preSmarrt.submitFriend()"> Zatwierdź przyjaciela </button>
-																				</div>
-
-																				
-																				
-																				
+																				<div ng-include="'pre-smarrt-part.htm'"></div>
 																			</div>
 
 																			<!-- KONIEC: INNE SMARTY! -->
 																			
 																			
 																			<!-- DODAJ SMARRT -->
-																			<i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i><i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i>
-																			<div class="badge badge-success badge-pill">Nowy Smart Room Request (SmaRRt for: {{ duns }})</div>
-																			<i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i><i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i>																		
+																			<!-- <i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i><i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i>-->
+																			<div 
+																				class="badge badge-success badge-pill"
+																				ng-click="mainList.toggleSmarrtFormVisibility()">
+																					Nowy Smart Room Request (SmaRRt for: {{ duns }})
+																			</div>
+																			<!-- <i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i><i class="fas fa-arrow-down zrob-te-strzalki-zielone"></i> -->
+																											
 																			<!-- smarrt form -->
-																			<div class="smarrt-form-container" ng-controller="SmarrtCtrl">
-																				<div class="col-md-6">
-																					<div class="jumbotron">
-																						<h4 
-																							class="alert alert-primary title-on-smarrt-form" 
-																							role="alert" 
-																							ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint)">
-																							Smart Room Request for {{ smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].Supplier }}  
-																							  <span ng-click="smarrt.moveInsideArray(plt, resp, fup, proj, faza, mrd, duns)" class="fas fa-sync"></span>
-																						</h4>
-																						<hr class="my-4">
-																						
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint)">	
-																						  <div class="input-group-prepend">
-																						    <span class="input-group-text badge-dark" id="">Supplier name and DUNS</span>
-																						  </div>
-																						  <input 
-																						  	type="text" 
-																						  	class="form-control"
-																						  	placeholder="Wpisz nazwe dostawcy"
-																						  	id="rr-supplier-{{duns}}" 
-																						  	ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].Supplier">
-																						  <input 
-																						  	type="text" 
-																						  	class="form-control" 
-																						  	placeholder="Wpisz DUNS / COFOR"
-																						  	id="rr-duns-{{duns}}" 
-																						  	ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].DUNS">
-																						</div>
-																						<hr class="my-2">
-																						
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint)">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Address and City</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control" 
-																								placeholder="Wpisz adres"
-																								id="rr-address-{{duns}}" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].Address">
-																							<input 
-																								type="text" 
-																								class="form-control"
-																								placeholder="Wpisz miasto" 
-																								id="rr-city-{{duns}}" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].City">
-																						</div>
-																						<hr class="my-2">
-										
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint)">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-light" id="">ZIP and CC</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control"
-																								placeholder="Wpisz ZIP CODE" 
-																								id="rr-zip-{{duns}}" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].ZIP">
-																							<input 
-																								type="text" 
-																								class="form-control"
-																								placeholder="Wpisz Country Code"
-																								id="rr-cc-{{duns}}" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].sharepoint[0].CC">
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA)">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Possible Pick up (date and time)</span>
-																							</div>
-																							<input 
-																								type="datetime-local" 
-																								class="form-control" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.PossiblePickUp"
-																								id="rr-possible-pickup-{{duns}}">
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA)">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-light" id="">Packaging/container type</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control"
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.Packaging"
-																								placeholder="wpisz dane dotyczące packagingu, typu kontenera"
-																								id="rr-cont-packaging-{{duns}}">
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA)">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Dimensions</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control"
-																								placeholder="wpisz rozmiary w postaci: 1 x 2 x 3 ; 10 x 10 x 10"
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.Dim"
-																								id="rr-dim-pickup-{{duns}}">
-																							<button 
-																								class="btn btn-success"
-																								ng-click="smarrt.dimWizard(plt, resp, fup, proj, faza, mrd, duns)"
-																								data-dismiss="modal" 
-																								data-toggle="modal" 
-																								data-target="#modal-cubes-handler">
-																								Dim Wizard</button>
-																								
-	
-																								
-																								
-																								
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group" ng-if="!!(smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA)">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-light" id="">Number of Containers and Weight</span>
-																							</div>
-																							<input 
-																								type="number" 
-																								class="form-control"
-																								placeholder="Wpisz liczbe kontenerow"
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.NumberOfContainers"
-																								id="rr-num-of-cont-{{duns}}">
-																							<input 
-																								type="number" 
-																								class="form-control" 
-																								placeholder="Wpisz wagę!"
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.Weight"
-																								id="rr-weight-{{duns}}">
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group">
-																						
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Stackable? (Y/N)</span>
-																							</div>
-																							<input 
-																								type="checkbox" 
-																								class="form-control" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.Stackable"
-																								id="rr-stackable-{{duns}}">
-																							
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Hazardous Goods</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control"
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.HazardousGoods"
-																								id="rr-hg-{{duns}}">
-										
-										
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Suggested route (if any)</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.SuggestedRoute"
-																								id="rr-s-route-{{duns}}">
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-light" id="">Deadline in plant</span>
-																							</div>
-																							<input 
-																								type="datetime-local" 
-																								class="form-control" 
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.DeadlineInPlant"
-																								id="rr-deadline-{{duns}}">
-																						</div>
-																						<hr class="my-2">
-																						<div class="input-group">
-																							<div class="input-group-prepend">
-																								<span class="input-group-text badge-secondary" id="">Extra FMA Remarks</span>
-																							</div>
-																							<input 
-																								type="text" 
-																								class="form-control" 
-																								placeholder="Czy masz jakiś dodatkowy komentarz dla CCC?"
-																								ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].RR[0].FMA.FMA_Remarks"
-																								id="rr-fma-remarks-{{duns}}">
-																						</div>
-																						
-																						<hr class="my-3">
-																						<br>
-																						
-																						<div>
-																						    <div>
-																					        	<h1>
-																					            	<button 
-																					            		type="submit" 
-																					            		class="btn btn-lg btn-success wyslij-zapytanie-ccc" 
-																					            		ng-click="smarrt.submitSmaRRtNew(plt, resp, fup, proj, faza, mrd, duns, 0)">
-																					            		Wyślij zapytanie do CCC
-																					            	</button>
-																					            </h1>
-																					            <div class="checkbox-add-supplier-on-smarrt">
-																									<span class="dodaj-dane-dostawcy">Dodaj/Aktualizuj dane dostawcy na liście sharepoint: </span>
-																				            		<input 
-																										type="checkbox"
-																										ng-model="smarrt.tree[plt][resp][ fup][ proj][faza][mrd][duns].addNewSupplierQ"
-																										id="rr-checkbox-new-supplier-{{duns}}">
-																								</div>																				            	
-																						    </div>
-																						</div>																						
-																					</div>
-																				</div>
-																				
-																				
-																				
+																			<div class="smarrt-form-container" ng-controller="SmarrtCtrl" ng-show="mainList.smarrtFormVisible">
+																				<div ng-include="'smarrt-form.htm'"></div>
 																			</div>
 																			<!-- end of smarrt form -->
 																			
-																			<!-- KONIEC SMARRT -->
-																			
-																			
+																			<!-- KONIEC SMARRT -->																			
 																		</div>
 																		<!-- koniec listy dostawcow z sp -->
-																		
-																		
-																		
 																	</li>																	
 																	<!-- END OF TABLES -->
 																</ul>
@@ -532,151 +190,170 @@
 
 
 		<div ng-controller="MapCtrl">
-		
-			    
-		    <!-- MAP -->
-		    <div id="nie-schow">
-		    	<button id="nie-schow-btn" class="btn btn-warning map-pac btn-sm" ng-click="nieSchow()"> <i class="fas fa-arrow-circle-left fa-2x"></i> </button>
-		    </div>
-		    <div id="outer-map">
-		    	<div id="map"></div>
-		    	<button id="pac-button-min" class="btn btn-dark map-pac btn-sm" ng-click="minMap()">_</button>
-		    	<button id="pac-button-max" class="btn btn-dark map-pac btn-sm" ng-click="normMap()">[]</button>
-		    	<button id="pac-button-max" class="btn btn-dark map-pac btn-sm" ng-click="maxMap()">[ ]</button>
-		    	<button id="pac-button-md" class="btn btn-dark map-pac btn-sm" ng-click="mapAndDetails()">[][]</button>
-		    	<button id="schow-btn" class="btn btn-warning map-pac btn-sm" ng-click="schow()"> <i class="fas fa-arrow-circle-right fa-2x"></i> </button>
-		    	<br>
-		    	<input id="pac-input" class="controls map-pac" type="text" placeholder="Wprowadź inną lokalizację dla wybranego room requestu">
-		    	<button id="pac-button" class="btn btn-secondary map-pac" ng-click="getDetailsFromPacInput()">Pokaż</button>
-		    	
-		    	<hr class="my-2">
-		    	<button id="map-details-button-min" class="btn btn-light map-details-btn btn-sm" ng-click="minMapDetails()">_</button>
-		    	<button id="map-details-button-max" class="btn btn-light map-details-btn btn-sm" ng-click="maxMapDetails()">[]</button>
 
-		    	<div id="map-text-details" class="jumbotron">
-		    		
-		    		<div class="card">
-		    			<div class="card-header">Detale lokalizacji, którą wybrałeś/wybrałaś: </div>
-		    			<div class="card-body">
-		    				Nazwa dostawcy: <span> {{ mapHandler.nm }} </span>
-		    				<hr class="my-2">
-		    				Adres: <span id="map-text-details-adr" > {{ mapHandler.adr }} </span>
-		    				<hr class="my-1">
-		    				Vicinity: <span id="map-text-details-vic" > {{ mapHandler.vic }} </span>
-		    				<hr class="my-1">
-		    				Telefon: <span id="map-text-details-tel" > {{ mapHandler.tel }} </span>
-		    				<hr class="my-2">
-		    				ID (Google Maps): <span id="map-text-details-pid"> {{ mapHandler.placeid }} </span>
-		    				<hr class="my-1">
-		    				Lat (Google Maps): <span id="map-text-details-lat"> {{ mapHandler.lat }} </span>
-		    				<hr class="my-1">
-		    				Lng (Google Maps): <span id="map-text-details-lng"> {{ mapHandler.lng }} </span>
-		    				<hr class="my-1">
-		    				LINK (Google Maps): <br><a href="{{ mapHandler.url }}" target="_blank" rel="noopener noreferrer"> {{ mapHandler.url }} </a>
-								<hr class="my-1">
-		    				<button class="btn btn-success" ng-click="mapHandler.updateSelectedSupplierFromMap()"><span class="fas fa-angle-double-left"></span> Aktualizuj dane dostawcy</button>
 
-		    			</div>
-		    		</div>
-		    		
-		    		
-		    	</div>
-		    </div>
-		    <!-- end of map -->
-	    </div>
+
+			<!-- MAP -->
+      <div id="nie-schow">
+      	<button id="nie-schow-btn" class="btn btn-warning map-pac btn-sm" ng-click="nieSchow()"> <i class="fas fa-arrow-circle-left fa-2x"></i> </button>
+      </div>
+      <div id="outer-map">
+      	<div id="map"></div>
+      	<button id="pac-button-min" class="btn btn-dark map-pac btn-sm" ng-click="minMap()">_</button>
+      	<button id="pac-button-max" class="btn btn-dark map-pac btn-sm" ng-click="normMap()">[]</button>
+      	<button id="pac-button-max" class="btn btn-dark map-pac btn-sm" ng-click="maxMap()">[ ]</button>
+      	<button id="pac-button-md" class="btn btn-dark map-pac btn-sm" ng-click="mapAndDetails()">[][]</button>
+      	<button id="schow-btn" class="btn btn-warning map-pac btn-sm" ng-click="schow()"> <i class="fas fa-arrow-circle-right fa-2x"></i> </button>
+      	<br>
+      	<input id="pac-input" class="controls map-pac" type="text" placeholder="Wprowadź inną lokalizację dla wybranego room requestu">
+      	<button id="pac-button" class="btn btn-secondary map-pac" ng-click="getDetailsFromPacInput()">Pokaż</button>
+      	
+      	<hr class="my-2">
+      	<button id="map-details-button-min" class="btn btn-light map-details-btn btn-sm" ng-click="minMapDetails()">_</button>
+      	<button id="map-details-button-max" class="btn btn-light map-details-btn btn-sm" ng-click="maxMapDetails()">[]</button>
+      
+      	<div id="map-text-details" class="jumbotron">
+      		
+      		<div class="card">
+      			<div class="card-header">Detale lokalizacji, którą wybrałeś/wybrałaś: </div>
+      			<div class="card-body">
+      				Nazwa dostawcy: <span> {{ mapHandler.nm }} </span>
+      				<hr class="my-2">
+      				Adres: <span id="map-text-details-adr" > {{ mapHandler.adr }} </span>
+      				<hr class="my-1">
+      				Vicinity: <span id="map-text-details-vic" > {{ mapHandler.vic }} </span>
+      				<hr class="my-1">
+      				Telefon: <span id="map-text-details-tel" > {{ mapHandler.tel }} </span>
+      				<hr class="my-2">
+      				ID (Google Maps): <span id="map-text-details-pid"> {{ mapHandler.placeid }} </span>
+      				<hr class="my-1">
+      				Lat (Google Maps): <span id="map-text-details-lat"> {{ mapHandler.lat }} </span>
+      				<hr class="my-1">
+      				Lng (Google Maps): <span id="map-text-details-lng"> {{ mapHandler.lng }} </span>
+      				<hr class="my-1">
+      				LINK (Google Maps): <br><a href="{{ mapHandler.url }}" target="_blank" rel="noopener noreferrer"> {{ mapHandler.url }} </a>
+      		<hr class="my-1">
+      				<button class="btn btn-success" ng-click="mapHandler.updateSelectedSupplierFromMap()"><span class="fas fa-angle-double-left"></span> Aktualizuj dane dostawcy</button>
+      
+      			</div>
+      		</div>
+      		
+      		
+      	</div>
+      </div>
+
+
+    </div>
 	    
 																								
 		<!-- Cube Ctrl -->
 		<!-- -->
-		<!-- -->
-		<!-- -->
 		<div id="cubeModal" ng-controller="CubeCtrl">
-			<div>
-				<div class="cube-modal-content">
-					<div class="cube-modal-header">
-						<button ng-click="cubesHandler.schow()" type="button" class="close" data-dismiss="modal">X</button>
-						<h4 class="cube-modal-title">{{ cubesHandler.Name }}</h4>
-					</div>
-					<div class="cube-modal-body">
-						
-						<canvas id="cube-canvas" width="1200" height="600"></canvas>
-						
-						<form>
-							WAGA: <input id="waga1" type="range" value="1" min="1" max="1000" step="5" ng-model="cubesHandler.w1w1" ng-change="cubesHandler.updateValsFromRange()">
-							<input id="wagaNum1" type="number" value="cubesHandler.w1w1" ng-model="cubesHandler.w1w1" ng-change="cubesHandler.updateValsFromNum()">
-							
-							ILE BOXÓW: <input id="q1" type="range" value="1" min="1" max="100" step="5" ng-model="cubesHandler.q1q1" ng-change="cubesHandler.updateValsFromRange()">
-							<input id="qNum1" type="number" value="cubesHandler.q1q1" ng-model="cubesHandler.q1q1" ng-change="cubesHandler.updateValsFromNum()">
-							
-							<br>
-							X: <input id="x1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.x1x1" ng-change="cubesHandler.updateValsFromRange()">
-							<input id="xNum1" type="number" value="cubesHandler.x1x1" ng-model="cubesHandler.x1x1" ng-change="cubesHandler.updateValsFromNum()">
-							Y: <input id="y1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.y1y1" ng-change="cubesHandler.updateValsFromRange()">
-							<input id="yNum1" type="number" value="cubesHandler.y1y1" ng-model="cubesHandler.y1y1" ng-change="cubesHandler.updateValsFromNum()">
-							Z: <input id="z1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.z1z1" ng-change="cubesHandler.updateValsFromRange()">
-							<input id="zNum1" type="number" value="cubesHandler.z1z1" ng-model="cubesHandler.z1z1" ng-change="cubesHandler.updateValsFromNum()">
-							<br>
-							<input id="color1" type="color" value="#ff8d4b" ng-model="cubesHandler.c1c1">
-						</form>
-						
-						<div id="pokaz-wymiary">
-							<div class="cube-ref" id="cube-ref-x1"> X: {{ cubesHandler.x1x1}} cm</div>
-							<div class="cube-ref" id="cube-ref-y1"> Y: {{ cubesHandler.y1y1}} cm</div>
-							<div class="cube-ref" id="cube-ref-z1"> Z: {{ cubesHandler.z1z1}} cm</div>
-							<div><b> Wymiary: {{ cubesHandler.currDim }} ; ILE BOX'ów: {{ cubesHandler.q1q1 }} </b></div>
-							<div><b> waga: {{ cubesHandler.w1w1}} kg </b></div>
-							<button class="btn btn-success" ng-click="cubesHandler.submitNewDims()">Dodaj pudełko</button>
-							<button class="btn btn-danger" ng-click="cubesHandler.resetPackaging()">Reset</button> 
-							<br>
-							<div class="cube-ref-summary" id="cube-ref-summary">
-								<div id="cube-ref-dim-str"> 
-									Wszystkie wymiary: {{ cubesHandler.RR.cubesRefDimsStr }} (w cm)
-								</div>
-								<div id="cube-ref-dim-str"> 
-									Ile kontenerów: {{ cubesHandler.RR.numOfCont }}
-								</div>
-								<div id="cube-ref-dim-str"> 
-									Waga całkowita: {{ cubesHandler.RR.weight }} kg
-								</div>
-							</div>
-							
-							<button class="btn btn-success" ng-click="cubesHandler.submitPackagingIntoRR()">Dodaj pudełka do SmaRRta</button>
 
-						</div>
-						
-					</div>
-				</div>
-			  
-			</div>
+
+			<div>
+      	<div class="cube-modal-content">
+      		<div class="cube-modal-header">
+      			<button ng-click="cubesHandler.schow()" type="button" class="close" data-dismiss="modal">X</button>
+      			<h4 class="cube-modal-title">{{ cubesHandler.Name }}</h4>
+      		</div>
+      		<div class="cube-modal-body">
+      			
+      			<canvas id="cube-canvas" width="1200" height="600"></canvas>
+      			
+      			<form>
+      				WAGA: <input id="waga1" type="range" value="1" min="1" max="1000" step="5" ng-model="cubesHandler.w1w1" ng-change="cubesHandler.updateValsFromRange()">
+      				<input id="wagaNum1" type="number" value="cubesHandler.w1w1" ng-model="cubesHandler.w1w1" ng-change="cubesHandler.updateValsFromNum()">
+      				
+      				ILE BOXÓW: <input id="q1" type="range" value="1" min="1" max="100" step="5" ng-model="cubesHandler.q1q1" ng-change="cubesHandler.updateValsFromRange()">
+      				<input id="qNum1" type="number" value="cubesHandler.q1q1" ng-model="cubesHandler.q1q1" ng-change="cubesHandler.updateValsFromNum()">
+      				
+      				<br>
+      				X: <input id="x1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.x1x1" ng-change="cubesHandler.updateValsFromRange()">
+      				<input id="xNum1" type="number" value="cubesHandler.x1x1" ng-model="cubesHandler.x1x1" ng-change="cubesHandler.updateValsFromNum()">
+      				Y: <input id="y1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.y1y1" ng-change="cubesHandler.updateValsFromRange()">
+      				<input id="yNum1" type="number" value="cubesHandler.y1y1" ng-model="cubesHandler.y1y1" ng-change="cubesHandler.updateValsFromNum()">
+      				Z: <input id="z1" type="range" value="100" min="0" max="200" step="10" ng-model="cubesHandler.z1z1" ng-change="cubesHandler.updateValsFromRange()">
+      				<input id="zNum1" type="number" value="cubesHandler.z1z1" ng-model="cubesHandler.z1z1" ng-change="cubesHandler.updateValsFromNum()">
+      				<br>
+      				<input id="color1" type="color" value="#ff8d4b" ng-model="cubesHandler.c1c1">
+      			</form>
+      			
+      			<div id="pokaz-wymiary">
+      				<div class="cube-ref" id="cube-ref-x1"> X: {{ cubesHandler.x1x1}} cm</div>
+      				<div class="cube-ref" id="cube-ref-y1"> Y: {{ cubesHandler.y1y1}} cm</div>
+      				<div class="cube-ref" id="cube-ref-z1"> Z: {{ cubesHandler.z1z1}} cm</div>
+      				<div><b> Wymiary: {{ cubesHandler.currDim }} ; ILE BOX'ów: {{ cubesHandler.q1q1 }} </b></div>
+      				<div><b> waga: {{ cubesHandler.w1w1}} kg </b></div>
+      				<button class="btn btn-success" ng-click="cubesHandler.submitNewDims()">Dodaj pudełko</button>
+      				<button class="btn btn-danger" ng-click="cubesHandler.resetPackaging()">Reset</button> 
+      				<br>
+      				<div class="cube-ref-summary" id="cube-ref-summary">
+      					<div id="cube-ref-dim-str"> 
+      						Wszystkie wymiary: {{ cubesHandler.RR.cubesRefDimsStr }} (w cm)
+      					</div>
+      					<div id="cube-ref-dim-str"> 
+      						Ile kontenerów: {{ cubesHandler.RR.numOfCont }}
+      					</div>
+      					<div id="cube-ref-dim-str"> 
+      						Waga całkowita: {{ cubesHandler.RR.weight }} kg
+      					</div>
+      				</div>
+      				
+      				<button class="btn btn-success" ng-click="cubesHandler.submitPackagingIntoRR()">Dodaj pudełka do SmaRRta</button>
+      
+      			</div>
+      			
+      		</div>
+      	</div>
+        
+      </div>
+
+
+
 		</div>
 		<!-- -->
+		
+		<hr class="my-4">
+		
+		<!-- niezalezna lista smarrtow -->
+		<div id="bottom-smarrt-list" class="bottom-smarrt-list" ng-controller="BottomSmarrtListCtrl">
+			<div ng-include="'get-bottom-smarrt-list.htm'"></div>
+		</div>
+		
+		
+		<!-- ClipboardHandler Ctrl -->
 		<!-- -->
-		<!-- -->
+		<div id="clipboard-yellow-icon" ng-controller="ClipboardHandlerCtrl">
+			<div ng-include="'clipboard-handler.htm'"></div>
+		</div>
 
-
-
+		
+		<hr class="my-4">
 
 	    
-	    <script src="angular.js"></script>
-	    <script src="angular-route.js"></script>
-	    <script src="angular-animate.js"></script>
-	    <script src="app.js"></script>
-	    <script src="ng-requests-service.js"></script>
-	    <script src="map-ctrl.js"></script>
-	    <script src="get-input-data-ctrl.js"></script>
-	    <script src="quick-stats-ctrl.js"></script>
-	    <script src="main-list-ctrl.js"></script>
-	    <script src="main-list-ctrl-event-handler-lib.js"></script>
-	    <script id="pre-smarrt-script" src="pre-smarrt-ctrl.js"></script>
-	    <script src="smarrt-ctrl.js"></script>
-	    <script src="cube-ctrl.js"></script>
-	    
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi4qGILGZie-a4X6BbiyBitcy1aU3Kp2A&libraries=places&callback=initMap" async defer></script>
-	    
-  	    <script src="shim.min.js"></script>
-	    <script src="xlsx.full.min.js"></script>
-	    
-	    <script src="FileSaver.min.js"></script>
+   <script src="angular.js"></script>
+   <script src="angular-route.js"></script>
+   <script src="angular-animate.js"></script>
+   <script src="app.js"></script>
+   <script src="ng-requests-service.js"></script>
+   <script src="map-ctrl.js"></script>
+   <script src="get-input-data-ctrl.js"></script>
+   <script src="quick-stats-ctrl.js"></script>
+   <script src="main-list-ctrl.js"></script>
+   <script src="main-list-ctrl-event-handler-lib.js"></script>
+   <script id="pre-smarrt-script" src="pre-smarrt-ctrl.js"></script>
+   <script src="smarrt-ctrl.js"></script>
+   <script src="cube-ctrl.js"></script>
+   <script src="bottom-smarrt-list-ctrl.js"></script>
+   <script src="clipboard-handler-ctrl.js"></script>
+   
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi4qGILGZie-a4X6BbiyBitcy1aU3Kp2A&libraries=places&callback=initMap" async defer></script>
+   
+   <script src="shim.min.js"></script>
+   <script src="xlsx.full.min.js"></script>
+   
+   <script src="FileSaver.min.js"></script>
 
 
 
