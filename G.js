@@ -4,7 +4,7 @@ var G_SUPPLIERS = [];
 
 var G_SPI_SH = "sharepoint_input";
 
-var G_PATH_TO_INPUT_FILE = "/blob/master";
+var G_PATH_TO_INPUT_FILE = "/blob/master/";
 var G_TEST_PATH_TO_INPUT_FILE = "https://share.opel.com/sites/ovso2/SOE_Gliwice/FMAsubsite/Shared%20Documents/SPI/SPI_TestCopy_20190702.xlsx";
 
 
