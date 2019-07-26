@@ -5,7 +5,7 @@ My first repo from version 20190701
 
 Now 2nd from 20190726 and with local excel source file.
 
-- [x] working locally! (just for testing) :+
+- [ ] working locally! (just for testing), but nah...
 
 ## Pls see:
 '''
